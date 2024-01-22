@@ -27,7 +27,7 @@
                                     <input type=button class="btn btn-sm btn-primary" value="Take Snapshot" onClick="take_snapshot()">
                                     <input type="hidden" name="image" class="image-tag">
                                     <div id="results">Your captured image will appear here...</div>
-                                    
+
                                     @error('image')
                                         <div class="alert alert-danger" role="alert">
                                             Data Harus diisi!
@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
-                                    <input type="text" name="nama_barang" class="form-control 
+                                    <input type="text" name="nama_barang" class="form-control
                                     @error('nama_barang')
                                         is-invalid
                                     @enderror" id="" aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
@@ -50,10 +50,10 @@
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="exampleInputEmail1" class="form-label">Stock</label>
-                                        <input type="number" name="stock" pattern="^[1-9][0-9]*$" class="form-control 
+                                        <input type="number" name="stock" pattern="^[1-9][0-9]*$" class="form-control
                                         @error('stock')
                                             is-invalid
-                                        @enderror" id="" aria-describedby="emailHelp" value="{{ old('stock') }}"> 
+                                        @enderror" id="" aria-describedby="emailHelp" value="{{ old('stock') }}">
                                         @error('stock')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -64,7 +64,7 @@
 
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Tahun Anggaran</label>
-                                    <input type="text" name="anggaran" class="form-control 
+                                    <input type="text" name="anggaran" class="form-control
                                     @error('anggaran')
                                         is-invalid
                                     @enderror" id="" aria-describedby="emailHelp" value="{{ old('anggaran') }}">
@@ -77,7 +77,7 @@
 
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Barcode</label>
-                                    <input type="text" style="font-family: 'Libre Barcode 39';font-size: 30px;" name="scan" class="form-control 
+                                    <input type="text" style="font-family: 'Libre Barcode 39';font-size: 30px;" name="scan" class="form-control
                                     @error('scan')
                                         is-invalid
                                     @enderror" id="barcode" aria-describedby="emailHelp" value="{{ old('scan') }}" onload="generateBarcodeNumber()">
@@ -90,7 +90,7 @@
 
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Serial Number</label>
-                                    <input type="text" name="serialnumber" class="form-control 
+                                    <input type="text" name="serialnumber" class="form-control
                                     @error('serialnumber')
                                         is-invalid
                                     @enderror" id="serialnumber" aria-describedby="emailHelp" value="{{ old('serialnumber') }}" onload="generateSerialNumber($id)">
@@ -111,7 +111,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <button class="btn btn-primary" id="toastr-2" type="submit">Submit</button>
                             </form>
                         </div>

@@ -16,6 +16,8 @@ use App\Http\Controllers\BaranguserController;
 use App\Http\Controllers\ChartJSController;
 use App\Http\Controllers\ForgotPasswordController;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use App\Http\Controllers\ReportBugController;
+
 
 
 /*
@@ -40,9 +42,9 @@ Route::get('/dashboard-general-dashboard', [HomeController::class, 'index'])->na
 // Recaptcha
 Route::get('/reload-captcha', [LoginController::class, 'reloadCaptcha']);
 
-  
+
 Route::get('auth-forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('auth-forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::post('auth-forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('auth-reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('auth-reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
@@ -52,7 +54,7 @@ Route::post('webcam', [WebcamController::class, 'store'])->name('webcam.capture'
 Route::get('scan', [ScanController::class, 'index'])->name('scan');
 
 // grafik
-  
+
 Route::get('/chart', [ChartJSController::class, 'index'])->name('chart');
 
 // Auth
@@ -380,3 +382,16 @@ Route::get('/utilities-subscribe', function () {
 Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
 });
+
+//bug report
+Route::get('/bugreport', [ReportBugController::class, 'showForm'])->name('bugreport.form');
+Route::post('/bugreport', [ReportBugController::class, 'submit'])->name('bugreport.submit');
+Route::get('/bugreport/view', [ReportBugController::class, 'viewBugReports'])->name('bugreport.view');
+Route::get('/bugreportadmin', [ReportBugController::class, 'bugReportAdmin'])->name('bugreport.admin');
+
+// testing
+Route::get('/test', function () {
+    $bugReports = \App\Models\BugReport::all();
+    dd($bugReports);
+});
+

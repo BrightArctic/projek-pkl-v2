@@ -33,15 +33,15 @@
                             <table class="table-striped table" id="table-1">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Gambar</th>
-                                        <th scope="col">Nama Barang</th>
-                                        <th scope="col">Stock</th>
-                                        <th scope="col">Tahun Anggaran</th>
-                                        <th scope="col">Kepemilikan</th>
-                                        <th scope="col">Serial Number</th>
-                                        <th scope="col">Barcode</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col" class="text-center">ID</th>
+                                        <th scope="col" class="text-center">Gambar</th>
+                                        <th scope="col" class="text-center">Nama Barang</th>
+                                        <th scope="col" class="text-center">Stock</th>
+                                        <th scope="col" class="text-center">Tahun Anggaran</th>
+                                        <th scope="col" class="text-center">Kepemilikan</th>
+                                        <th scope="col" class="text-center">Serial Number</th>
+                                        <th scope="col" class="text-center">Barcode</th>
+                                        <th scope="col" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,15 +57,15 @@
                                         <input type="hidden" value="{{ $row->kepemilikan }}" class="key{{ $no }}">
                                         <input type="hidden" value="{{ $row->scan }}" class="key{{ $no }}">
                                         <input type="hidden" value="{{ $row->serialnumber }}" class="key{{ $no }}">
-                                        <td> {{$no + 1}} </td>
-                                        <td><img src="{{ $row->image }}" style="width: 90px;"></td>
-                                        <td>{{$row ->nama_barang}}</td>
-                                        <td>{{$row ->stock}}</td>
-                                        <td>{{$row ->anggaran}}</td>
-                                        <td>{{$row ->kepemilikan}}</td>
-                                        <td>{{$row ->serialnumber}}</td>
-                                        <td style="font-family: 'Libre Barcode 39';font-size: 22px;">{{$row ->scan}}</td>
-                                        <td>
+                                        <td class="text-center"> {{$no + 1}} </td>
+                                        <td class="text-center"><img src="{{ $row->image }}" style="width: 90px;"></td>
+                                        <td class="text-center">{{$row ->nama_barang}}</td>
+                                        <td class="text-center">{{$row ->stock}}</td>
+                                        <td class="text-center">{{$row ->anggaran}}</td>
+                                        <td class="text-center">{{$row ->kepemilikan}}</td>
+                                        <td class="text-center">{{$row ->serialnumber}}</td>
+                                        <td class="text-center" style="font-family: 'Libre Barcode 39';font-size: 22px;">{{$row ->scan}}</td>
+                                        <td class="text-center">
                                             <div class="container d-flex" style="margin: 0;padding: 0;">
                                                 <form action="{{route('deletebarang',$row->id)}}"
                                                     id="delete{{$row->id}}" method="POST" class="d-block">

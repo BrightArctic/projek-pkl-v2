@@ -25,7 +25,7 @@
                                 <input type=button class="btn btn-sm btn-primary" value="Take Snapshot" onClick="take_snapshot()">
                                 <input type="hidden" name="image" class="image-tag">
                                 <div id="results">Silahkan Foto KTM/KTP Anda Sebagai Identitas Peminjam...</div>
-                                
+
                                 @error('image')
                                     <div class="alert alert-danger" role="alert">
                                         Data Harus diisi!
@@ -35,7 +35,7 @@
 
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">NIM</label>
-                                <input type="text" name="nim" id="" class="form-control 
+                                <input type="text" name="nim" id="" class="form-control
                                 @error('nim')
                                     is-invalid
                                 @enderror" aria-describedby="emailHelp" value="{{auth()->user()->nim}}" readonly>
@@ -45,22 +45,20 @@
                                 </div>
                                 @enderror
                             </div>
-    
+
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Nama</label>
                                 <input type="text" name="nama"  class="form-control" aria-describedby="emailHelp" value="{{auth()->user()->name}}" readonly>
-                                </input>
                             </div>
-    
+
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
                                 <input type="text" name="nama_barang"  class="form-control" aria-describedby="emailHelp" value="{{$barang->nama_barang}}" readonly>
-                                </input>
                             </div>
 
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">keterangan</label>
-                                <input type="text" name="keterangan" class="form-control 
+                                <input type="text" name="keterangan" class="form-control
                                 @error('keterangan')
                                     is-invalid
                                 @enderror" id="" aria-describedby="emailHelp">
@@ -73,7 +71,7 @@
 
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Jumlah</label>
-                                <input type="text" name="jumlah" class="form-control 
+                                <input type="text" name="jumlah" class="form-control
                                 @error('jumlah')
                                     is-invalid
                                 @enderror" id="" aria-describedby="emailHelp">
@@ -87,9 +85,8 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Kepemilikan</label>
                                 <input type="text" name="kepemilikan"  class="form-control" aria-describedby="emailHelp" value="{{$barang->kepemilikan}}" readonly>
-                                </input>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
