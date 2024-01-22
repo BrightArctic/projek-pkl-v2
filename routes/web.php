@@ -383,15 +383,33 @@ Route::get('/credits', function () {
     return view('pages.credits', ['type_menu' => '']);
 });
 
-//bug report
+//Pusat Bantuan page
+
+// Frequently Asked Question
+Route::get('/frequently-asked-question', function () {
+    return view('PusatBantuan.faq');
+});
+
+// kritik dan saran
+Route::get('/kridaran', function () {
+    return view('kridaran');
+});
+
+
+// bug report
 Route::get('/bugreport', [ReportBugController::class, 'showForm'])->name('bugreport.form');
 Route::post('/bugreport', [ReportBugController::class, 'submit'])->name('bugreport.submit');
 Route::get('/bugreport/view', [ReportBugController::class, 'viewBugReports'])->name('bugreport.view');
 Route::get('/bugreportadmin', [ReportBugController::class, 'bugReportAdmin'])->name('bugreport.admin');
 
+
+
+
+
 // testing
-Route::get('/test', function () {
-    $bugReports = \App\Models\BugReport::all();
-    dd($bugReports);
-});
+// Route::get('/test', function () {
+//     $bugReports = \App\Models\BugReport::all();
+//     dd($bugReports);
+// });
+
 

@@ -80,7 +80,19 @@
                         </ul>
                         <li class="nav-item dropdown" >
                             <a href="#"
-                                class="nav-link has-dropdown"><i class="fas fa-flag"></i> <span>Report</span></a>
+                                class="nav-link has-dropdown"><i class="fas fa-question"></i> <span>Pusat Bantuan</span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="{{ Request::is('faq') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ url('frequently-asked-question') }}">
+                                        <i class="fas fa-circle-question"></i>F.A.Q</a>
+                                    </li>
+                                </ul>
+                                <ul class="dropdown-menu">
+                                    <li class="{{ Request::is('kridaran') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ url('kridaran') }}">
+                                            <i class="fas fa-file-pen"></i>Kritik Dan Saran</a>
+                                    </li>
+                                </ul>
                             <ul class="dropdown-menu">
                                 <li class="{{ Request::is('forms-validation') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ url('bugreport') }}">

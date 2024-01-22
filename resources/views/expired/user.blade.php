@@ -77,6 +77,7 @@
                                             <tr>
                                                 <th scope="col" class="text-center">ID</th>
                                                 <th scope="col" class="text-center">Name</th>
+                                                {{-- <th scope="col" class="text-center">Jurusan</th> --}}
                                                 <th scope="col" class="text-center">Nim</th>
                                                 <th scope="col" class="text-center">Email</th>
                                                 <th scope="col" class="text-center">Role</th>
@@ -90,6 +91,7 @@
                                                 <tr>
                                                     <th scope="row" class="text-center">{{ $index + $data->firstItem() }}</th>
                                                     <td class="text-center">{{ $row->name }}</td>
+                                                    {{-- <td class="text-center">{{ $row->Jurusan }}</td> --}}
                                                     <td class="text-center">{{ $row->nim }}</td>
                                                     <td class="text-center">{{ $row->email }}</td>
                                                     <td class="text-center">{{ $row->role }}</td>

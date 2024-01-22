@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'pswrd' => Hash::make('12345678'),
             'expired_at' => now()->addMonths(9),
             'role' => 'admin',
+            'jurusan' => 'admin',
             'nim' => '12345678'
         ]);
         \App\Models\User::factory()->create([
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'pswrd' => Hash::make('12345678'),
             'expired_at' => now()->addMonths(9),
             'role' => 'mahasiswa',
+            'jurusan' => 'hukum',
             'nim' => '09876543'
         ]);
     }
