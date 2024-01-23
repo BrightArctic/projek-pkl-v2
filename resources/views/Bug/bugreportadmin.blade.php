@@ -36,7 +36,7 @@
 
                         {{-- Button on the right side --}}
                         <div class="ml-auto">
-                            <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})">Delete</button>
+                            <button class="btn btn-primary" onclick="deleteBugReport({{ $bugReport->id }})">tag as fixed</button>
                         </div>
                     </div>
                 </div>
