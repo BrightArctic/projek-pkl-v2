@@ -401,7 +401,7 @@ Route::get('/bugreport', [ReportBugController::class, 'showForm'])->name('bugrep
 Route::post('/bugreport', [ReportBugController::class, 'submit'])->name('bugreport.submit');
 Route::get('/bugreport/view', [ReportBugController::class, 'viewBugReports'])->name('bugreport.view');
 Route::get('/bugreportadmin', [ReportBugController::class, 'bugReportAdmin'])->name('bugreport.admin');
-
+Route::delete('/bugreport/delete/{id}', [ReportBugController::class, 'deleteBugReport'])->name('bugreport.delete');
 
 
 

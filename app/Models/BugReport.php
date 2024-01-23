@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BugReport extends Model
 {
     protected $table = 'bug_reports'; // Ensure this matches your actual table name
-    protected $fillable = ['name', 'email', 'subject', 'message']; // Add other fields as needed
+    protected $fillable = ['name', 'email', 'subject', 'message', 'image_path']; // Add other fields as needed
 }
 

@@ -16,6 +16,7 @@ class CreateBugReportsTable extends Migration
             $table->string('email');
             $table->string('subject')->nullable();
             $table->text('message');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

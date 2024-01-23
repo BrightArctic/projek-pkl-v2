@@ -50,6 +50,11 @@
                                         <label>Message</label>
                                         <textarea class="form-control" name="message" data-height="150" required=""></textarea>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Provide Screenshot(optional)</div></label>
+                                        <input type="file" class="form-control-file" name="image">
+                                    </div>
+
                                 </div>
                                 <div class="card-footer d-flex justify-content-center">
                                     <button class="btn btn-primary" type="submit" style="width: 50%; font-size: 105%;">Submit</button>
