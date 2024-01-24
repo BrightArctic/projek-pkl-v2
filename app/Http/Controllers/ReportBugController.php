@@ -46,7 +46,7 @@ class ReportBugController extends Controller
         BugReport::create($bugReportData);
 
         // Redirect to the named route
-        return redirect()->route('bugreport.form')->with('success', 'Bug report submitted successfully!');
+        return response()->json(['message' => 'Bug report submitted successfully.'], 200);
     }
 
     public function bugReportAdmin()

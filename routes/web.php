@@ -17,6 +17,7 @@ use App\Http\Controllers\ChartJSController;
 use App\Http\Controllers\ForgotPasswordController;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Controllers\ReportBugController;
+use App\Http\Controllers\AnnouncementController;
 
 
 
@@ -32,6 +33,11 @@ use App\Http\Controllers\ReportBugController;
 */
 
 // Route::redirect('/', '/dashboard-general-dashboard');
+
+// announcement in general dashboard
+
+Route::post('/post-announcement', [AnnouncementController::class, 'postAnnouncement'])->name('postAnnouncement');
+// s
 
 Route::redirect('/', '/auth-login2',)->middleware('guest');
 Route::post('loginproses', [LoginController::class, 'loginproses'])->name('loginproses');

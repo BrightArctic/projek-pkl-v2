@@ -60,3 +60,19 @@ $("#swal-8").click(function() {
     timer: 3000,
   });
 });
+
+$("#swal-10").click(function () {
+    $.ajax({
+        type: 'post',
+        url: $('#bugReportForm').attr('action'),
+        data: $('#bugReportForm').serialize(),
+        success: function (response) {
+            swal('Success!', response.message, 'success');
+            window.location.href = '/dashboard-general-dashboard';
+        },
+        error: function (error) {
+            swal('Error!', 'Bug report submission failed. Please try again.', 'error');
+        }
+    });
+});
+
