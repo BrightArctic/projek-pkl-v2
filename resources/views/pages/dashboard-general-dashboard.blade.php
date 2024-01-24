@@ -8,6 +8,9 @@
         href="{{ asset('library/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/summernote/dist/summernote-bs4.min.css') }}">
+
+         <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @endpush
 
 @section('main')
@@ -64,36 +67,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="section-body">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2>Announcement</h2>
-                        </div>
-                        <div class="card-body">
-                            @php
-                                // Retrieve the latest announcement
-                                $latestAnnouncement = \App\Models\Announcement::latest()->first();
-                            @endphp
+<div class="section-body">
+    <div class="card custom-width-card">
+        <div class="card-body">
+            <h2>Announcement</h2>
+        </div>
+        <div class="card-body">
+            @php
+                // Retrieve the latest announcement
+                $latestAnnouncement = \App\Models\Announcement::latest()->first();
+            @endphp
 
-                            @if($latestAnnouncement)
-                                <p>{{ $latestAnnouncement->message }}</p>
-                            @else
-                                <p>No announcement available</p>
-                            @endif
-                        </div>
-                        <div class="card-footer">
-                            <!-- Add a form for posting announcements -->
-                            <form action="{{ route('postAnnouncement') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="message">Announcement:</label>
-                                    <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
-                                </div>
-                                <button class="btn btn-primary" type="submit">Post an Announcement</button>
-                            </form>
-                        </div>
-                    </div>
+            @if($latestAnnouncement)
+                <p>{{ $latestAnnouncement->message }}</p>
+            @else
+                <p>No announcement available</p>
+            @endif
+        </div>
+        <div class="card-footer">
+            <!-- Add a form for posting announcements -->
+            <form action="{{ route('postAnnouncement') }}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label for="message">Post An Announcement:</label>
+                    <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
                 </div>
+                <button class="btn btn-primary" type="submit">Announce</button>
+            </form>
+        </div>
+    </div>
+</div>
+
                 {{-- <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -158,22 +162,25 @@
                     </div>
                 </div>
                 <div class="section-body">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2>Announcement</h2>
-                        </div>
-                        <div class="card-body">
-                            @php
-                                // Retrieve the latest announcement
-                                $latestAnnouncement = \App\Models\Announcement::latest()->first();
-                            @endphp
+                    <div class="card custom-width-card">
+                        <!-- Card content goes here -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h2>Announcement</h2>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    // Retrieve the latest announcement
+                                    $latestAnnouncement = \App\Models\Announcement::latest()->first();
+                                @endphp
 
-                            @if($latestAnnouncement)
-                                <p>{{ $latestAnnouncement->message }}</p>
-                            @else
-                                <p>No announcement available</p>
-                            @endif
-                        </div>
+                                @if($latestAnnouncement)
+                                    <p>{{ $latestAnnouncement->message }}</p>
+                                @else
+                                    <p>No announcement available</p>
+                                @endif
+                            </div>
+                    </div>
                 </div>
                 {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">

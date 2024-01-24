@@ -3714,3 +3714,9 @@ body.layout-3 .main-wrapper {
     opacity: 0;
   }
 }
+
+.custom-width-card {
+    width: 1070px; /* Set your desired width */
+    max-width: 100%; /* Allow the card to be responsive within the specified width */
+    /* You can add more styles as needed */
+}
