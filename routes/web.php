@@ -397,9 +397,8 @@ Route::get('/frequently-asked-question', function () {
 });
 
 // kritik dan saran
-Route::get('/kridaran', function () {
-    return view('kridaran');
-});
+Route::get('/kridaran', [App\Http\Controllers\KridaranController::class, 'showKridaran'])->name('kridaran');
+Route::post('/submit-kridaran', [KridaranController::class, 'submitKridaran'])->name('submit.kridaran');
 
 
 // bug report
