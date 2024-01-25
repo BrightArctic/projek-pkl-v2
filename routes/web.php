@@ -18,6 +18,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Controllers\ReportBugController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\KridaranController;
 
 
 
@@ -397,8 +398,16 @@ Route::get('/frequently-asked-question', function () {
 });
 
 // kritik dan saran
+Route::middleware(['auth', 'checkRole:mahasiswa,admin'])->group(function () {
 Route::get('/kridaran', [App\Http\Controllers\KridaranController::class, 'showKridaran'])->name('kridaran');
 Route::post('/submit-kridaran', [App\Http\Controllers\KridaranController::class, 'submitKridaran'])->name('submit.kridaran');
+});
+
+Route::middleware(['auth', 'checkRole:admin'])->group(function () {
+    Route::get('/kridaranadmin', [KridaranController::class, 'kridaranAdmin'])->name('kridaran.admin');
+    Route::delete('/kridaran/delete/{id}', [KridaranController::class, 'deleteBugKridaran'])->name('kridaran.delete');
+});
+
 
 // bug report
 Route::middleware(['auth', 'checkRole:mahasiswa,admin'])->group(function () {

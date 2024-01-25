@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Kridaran; // Import the Kridaran model
+use App\Models\Kridaran;
 
 class KridaranController extends Controller
 {
@@ -35,5 +35,31 @@ class KridaranController extends Controller
 
         // Redirect or respond as needed
         return response()->json(['message' => 'Kritik dan saran submitted successfully.'], 200);
+    }
+
+    public function kridaranAdmin()
+    {
+        try {
+            $kridaranData = Kridaran::all();
+            // dd($kridaranData); // Add this line to check if data is retrieved
+        } catch (QueryException $e) {
+            // Handle the exception when the table doesn't exist
+            $kridaranData = [];
+        }
+
+        return view('PusatBantuan.kridaranadmin', compact('kridaranData'));
+    }
+
+    public function deleteBugKridaran($id)
+    {
+        $kridaran = Kridaran::find($id);
+
+        if ($kridaran) {
+            // Delete the kridaran data
+            $kridaran->delete();
+            return response()->json(['message' => 'Kridaran data deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Kridaran data not found.'], 404);
+        }
     }
 }

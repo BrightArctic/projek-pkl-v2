@@ -55,8 +55,8 @@
                     </li>
                 </ul>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('kridaran') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('kridaran') }}">
+                    <li class="{{ Request::is('kridaranadmin') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('kridaran.admin') }}">
                             <i class="fas fa-file-pen"></i>Kritik Dan Saran
                         </a>
                     </li>
