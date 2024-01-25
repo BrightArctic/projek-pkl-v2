@@ -11,11 +11,8 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Send Message</h1>
+                <h1>Bug Report</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Form Validation</div>
                 </div>
             </div>
 
@@ -31,7 +28,7 @@
                             <form id="bugReportForm" method="post" action="{{ route('bugreport.submit') }}">
                                 @csrf <!-- Add the CSRF token for security -->
                                 <div class="card-header">
-                                    <h4>FORM REPORT</h4>
+                                    <h4>FORM BUG REPORT</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
@@ -47,11 +44,11 @@
                                         <input type="text" class="form-control" name="subject">
                                     </div>
                                     <div class="form-group mb-0">
-                                        <label>Message</label>
+                                        <label> Ceritakan Bug Yang Dialami:</label>
                                         <textarea class="form-control" name="message" data-height="150" required=""></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Provide Screenshot(optional)</div></label>
+                                        <label>Masukan Screenshot (opsional)</div></label>
                                         <input type="file" class="form-control-file" name="image">
                                     </div>
 

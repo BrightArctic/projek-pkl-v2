@@ -11,18 +11,15 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Send Message</h1>
+                <h1>Kritik Dan Saran</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Form Validation</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <h2 class="section-title">Silahkan Isi Pesan!</h2>
                 <p class="section-lead">
-                    Isi pesan sesuai yang masalah di alami pada website.
+                    Isilah Kritik Dan Saran Di Dalam Kolom Pesan
                 </p>
 
                 <div class="row">
@@ -31,7 +28,7 @@
                             <form id="kridaranForm" method="post" action="{{ route('submit.kridaran') }}">
                                 @csrf <!-- Add the CSRF token for security -->
                                 <div class="card-header">
-                                    <h4>FORM REPORT</h4>
+                                    <h4>Form Kritik Dan Saran</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
@@ -42,19 +39,10 @@
                                         <label>Email</label>
                                         <input type="email" class="form-control" name="email" required="">
                                     </div>
-                                    <div class="form-group">
-                                        <label>Subject</label>
-                                        <input type="text" class="form-control" name="subject">
-                                    </div>
                                     <div class="form-group mb-0">
-                                        <label>Message</label>
+                                        <label>Kritik Dan Saran Anda:</label>
                                         <textarea class="form-control" name="message" data-height="150" required=""></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Provide Screenshot(optional)</div></label>
-                                        <input type="file" class="form-control-file" name="image">
-                                    </div>
-
                                 </div>
                                 <div class="card-footer d-flex justify-content-center">
                                     <button class="btn btn-primary" type="submit" style="width: 50%; font-size: 105%;">Submit</button>
@@ -70,7 +58,7 @@
     <script>
         $(document).ready(function () {
             // Intercept the form submission
-            $('#bugReportForm').submit(function (e) {
+           $('#kridaranForm').submit(function (e) {
                 e.preventDefault();
 
                 // Perform AJAX form submission
