@@ -28,7 +28,10 @@
 
                             {{-- Button on the right side --}}
                             <div class="ml-auto">
-                                <button class="btn btn-primary" onclick="deleteKridaran({{ $kridaran->id }})">Delete</button>
+                                <button class="btn btn-primary" onclick=" ">Add to To-Do List</button>
+                            </div>
+                            <div class="ml-2"> <!-- Add margin-left class for horizontal spacing -->
+                                <button class="btn btn-danger" onclick="deleteKridaran({{ $kridaran->id }})"> <i class="fas fa-trash"></i> </button>
                             </div>
                         </div>
                     </div>
