@@ -400,13 +400,16 @@ Route::get('/frequently-asked-question', function () {
 Route::get('/kridaran', [App\Http\Controllers\KridaranController::class, 'showKridaran'])->name('kridaran');
 Route::post('/submit-kridaran', [App\Http\Controllers\KridaranController::class, 'submitKridaran'])->name('submit.kridaran');
 
-
 // bug report
-Route::get('/bugreport', [ReportBugController::class, 'showForm'])->name('bugreport.form');
-Route::post('/bugreport', [ReportBugController::class, 'submit'])->name('bugreport.submit');
-Route::get('/bugreport/view', [ReportBugController::class, 'viewBugReports'])->name('bugreport.view');
-Route::get('/bugreportadmin', [ReportBugController::class, 'bugReportAdmin'])->name('bugreport.admin');
-Route::delete('/bugreport/delete/{id}', [ReportBugController::class, 'deleteBugReport'])->name('bugreport.delete');
+Route::middleware(['auth', 'checkRole:mahasiswa,admin'])->group(function () {
+    Route::get('/bugreport', [ReportBugController::class, 'showForm'])->name('bugreport.form');
+    Route::post('/bugreport', [ReportBugController::class, 'submit'])->name('bugreport.submit');
+    Route::get('/bugreport/view', [ReportBugController::class, 'viewBugReports'])->name('bugreport.view');
+});
+Route::middleware(['auth', 'checkRole:admin'])->group(function () {
+    Route::get('/bugreportadmin', [ReportBugController::class, 'bugReportAdmin'])->name('bugreport.admin');
+    Route::delete('/bugreport/delete/{id}', [ReportBugController::class, 'deleteBugReport'])->name('bugreport.delete');
+});
 
 
 
