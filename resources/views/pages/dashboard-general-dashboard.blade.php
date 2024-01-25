@@ -79,7 +79,9 @@
             @endphp
 
             @if($latestAnnouncement)
-                <p>{{ $latestAnnouncement->message }}</p>
+                <p>
+                    <strong>Message:</strong> {{ $latestAnnouncement->message }}
+                </p>
             @else
                 <p>No announcement available</p>
             @endif

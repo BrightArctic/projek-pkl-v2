@@ -31,12 +31,15 @@
                             </li>
                             @endif
 
-                            <div class="time"><strong>10 Hours Ago</strong></div>
+                            <div class="time"><strong>{{ $bugReport->created_at->diffForHumans() }}</strong></div>
                         </div>
 
                         {{-- Button on the right side --}}
                         <div class="ml-auto">
-                            <button class="btn btn-primary" onclick="deleteBugReport({{ $bugReport->id }})">tag as fixed</button>
+                            <button class="btn btn-primary" onclick=" ">Add to To-Do List</button>
+                        </div>
+                        <div class="ml-2">
+                            <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>

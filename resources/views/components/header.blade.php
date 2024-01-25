@@ -89,7 +89,10 @@
                 </div>
             </div>
         </div> --}}
-        <div class="search-element">
+
+        {{-- searchbar --}}
+
+        {{-- <div class="search-element">
             <input class="form-control"
                 type="search"
                 placeholder="Search"
@@ -167,7 +170,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </form>
 
