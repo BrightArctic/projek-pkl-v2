@@ -34,11 +34,16 @@ use App\Http\Controllers\KridaranController;
 */
 
 // Route::redirect('/', '/dashboard-general-dashboard');
+//general dashboard
+
+//to do-list in general dashboard
+Route::get('/todo-list', [App\Http\Controllers\TodoListController::class, 'index'])->name('todo-list.index');
+Route::post('/todo-list/add', [TodoListController::class, 'addToTodoList'])->name('todo-list.add');
+
 
 // announcement in general dashboard
 
 Route::post('/post-announcement', [AnnouncementController::class, 'postAnnouncement'])->name('postAnnouncement');
-// s
 
 Route::redirect('/', '/auth-login2',)->middleware('guest');
 Route::post('loginproses', [LoginController::class, 'loginproses'])->name('loginproses');

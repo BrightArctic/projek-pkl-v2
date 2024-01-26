@@ -189,9 +189,6 @@
                 class="nav-link nav-link-lg message-toggle beep"><i class="fa-solid fa-list-check"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">To-Do List
-                    <div class="float-right">
-                        <a href="#">Mark All As Read</a>
-                    </div>
                 </div>
                 <div class="dropdown-list-content dropdown-list-message">
                     <a href="#"
@@ -263,7 +260,7 @@
                     </a>
                 </div>
                 <div class="dropdown-footer text-center">
-                    <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                    <a href="{{ route('todo-list.index') }}">View All <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
         </li>
