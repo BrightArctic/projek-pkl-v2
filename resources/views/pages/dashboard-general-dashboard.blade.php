@@ -86,7 +86,7 @@
     <div class="dropdown-item-desc">
         <b>{{ $latestAnnouncement->user_name }}</b>
         <p>{{ $latestAnnouncement->message }}</p>
-        <div class="time">10 Hours Ago</div>
+        <div class="time"><strong>{{ $latestAnnouncement->created_at->diffForHumans() }}</strong></div>
     </div>
 </p>
 @else
@@ -176,24 +176,30 @@
                 </div>
                 <div class="section-body">
                     <div class="card custom-width-card">
-                        <!-- Card content goes here -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>Announcement</h2>
-                            </div>
-                            <div class="card-body">
-                                @php
-                                    // Retrieve the latest announcement
-                                    $latestAnnouncement = \App\Models\Announcement::latest()->first();
-                                @endphp
+                        <div class="card-body">
+                            <h2>Announcement</h2>
+                        </div>
+                        <div class="card-body">
+                            @php
+                                // Retrieve the latest announcement
+                                $latestAnnouncement = \App\Models\Announcement::latest()->first();
+                            @endphp
 
-                                @if($latestAnnouncement)
-                                    <p>{{ $latestAnnouncement->message }}</p>
-                                @else
-                                    <p>No announcement available</p>
-                                @endif
-                            </div>
+                @if($latestAnnouncement)
+                <p>
+                    <div class="dropdown-item-avatar">
+                        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
                     </div>
+                    <div class="dropdown-item-desc">
+                        <b>{{ $latestAnnouncement->user_name }}</b>
+                        <p>{{ $latestAnnouncement->message }}</p>
+                        <div class="time"><strong>{{ $latestAnnouncement->created_at->diffForHumans() }}</strong></div>
+                    </div>
+                </p>
+                @else
+                <p>No announcement available</p>
+                @endif
+                        </div>
                 </div>
                 {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
