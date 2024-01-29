@@ -84,8 +84,8 @@
         <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
     </div>
     <div class="dropdown-item-desc">
-        <b>name: {{ $latestAnnouncement->user_name }}</b>
-        <p><strong>Message:</strong> {{ $latestAnnouncement->message }}</p>
+        <b>{{ $latestAnnouncement->user_name }}</b>
+        <p>{{ $latestAnnouncement->message }}</p>
         <div class="time">10 Hours Ago</div>
     </div>
 </p>

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Announcement extends Model
 {
-    protected $fillable = ['message'];
+    protected $fillable = ['message','user_name'];
     use HasFactory;
 }
