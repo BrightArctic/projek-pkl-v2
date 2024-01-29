@@ -53,18 +53,17 @@
     // Make an AJAX request to send bug report information to the controller
     $.ajax({
         type: 'POST',
-        url: '{{ route("todo-list.add") }}', // Route to the controller method
+        url: '{{ route("todo-list.add") }}',
         data: {
             bugReportId: bugReportId,
             name: name,
             subject: subject,
             message: message,
-            _token: '{{ csrf_token() }}'
+            _token: '{{ csrf_token() }}',
         },
         success: function(response) {
-            // Handle success response if needed
-            console.log(response);
-        },
+    console.log(response);
+},
         error: function(xhr, status, error) {
             // Handle error response if needed
             console.error(xhr.responseText);

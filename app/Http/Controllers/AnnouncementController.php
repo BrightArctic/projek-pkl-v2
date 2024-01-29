@@ -9,22 +9,25 @@ use Illuminate\Support\Facades\DB;
 class AnnouncementController extends Controller
 {
     public function postAnnouncement(Request $request)
-{
-    $request->validate([
-        'message' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'message' => 'required|string',
+        ]);
 
-    Announcement::create([
-        'message' => $request->input('message'),
-    ]);
+        $userName = $request->input('userName'); // Retrieve the user's name from the request
 
-    DB::table('announcements')->insert([
-        'message' => $request->input('message'),
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+        Announcement::create([
+            'message' => $request->input('message'),
+            'user_name' => $userName, // Store the user's name along with the announcement message
+        ]);
 
-    return redirect('/dashboard-general-dashboard')->with('success', 'Announcement posted successfully');
-}
+        DB::table('announcements')->insert([
+            'message' => $request->input('message'),
+            'user_name' => $userName, // Store the user's name along with the announcement message
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
+        return redirect('/dashboard-general-dashboard')->with('success', 'Announcement posted successfully');
+    }
 }

@@ -78,13 +78,21 @@
                 $latestAnnouncement = \App\Models\Announcement::latest()->first();
             @endphp
 
-            @if($latestAnnouncement)
-                <p>
-                    <strong>Message:</strong> {{ $latestAnnouncement->message }}
-                </p>
-            @else
-                <p>No announcement available</p>
-            @endif
+@if($latestAnnouncement)
+<p>
+    <div class="dropdown-item-avatar">
+        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
+    </div>
+    <div class="dropdown-item-desc">
+        <b>name: {{ $latestAnnouncement->user_name }}</b>
+        <p><strong>Message:</strong> {{ $latestAnnouncement->message }}</p>
+        <div class="time">10 Hours Ago</div>
+    </div>
+</p>
+@else
+<p>No announcement available</p>
+@endif
+
         </div>
         <div class="card-footer">
             <!-- Add a form for posting announcements -->
@@ -93,9 +101,12 @@
                 <div class="form-group">
                     <label for="message">Post An Announcement:</label>
                     <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                    <!-- Add a hidden input field for the user's name -->
+                    <input type="hidden" name="userName" value="{{ auth()->user()->name }}">
                 </div>
                 <button class="btn btn-primary" type="submit">Announce</button>
             </form>
+
         </div>
     </div>
 </div>

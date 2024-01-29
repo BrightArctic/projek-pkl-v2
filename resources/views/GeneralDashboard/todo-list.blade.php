@@ -15,7 +15,7 @@
                             {{-- Add your item details here --}}
                             <div class="media-body">
                                 <div class="media-title"><strong>Item Name: {{ $item->name }}</strong></div>
-                                <p class="mb-1">Description: {{ $item->description }}</p>
+                                <p class="mb-1">Description: {{ $item->message }}</p>
                                 {{-- Add more fields as needed --}}
                                 <!-- Assuming you have a 'created_at' field -->
                                 <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
