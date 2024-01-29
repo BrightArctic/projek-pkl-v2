@@ -38,7 +38,8 @@ use App\Http\Controllers\KridaranController;
 
 //to do-list in general dashboard
 Route::get('/todo-list', [App\Http\Controllers\TodoListController::class, 'index'])->name('todo-list.index');
-Route::post('/todo-list/add', [TodoListController::class, 'addToTodoList'])->name('todo-list.add');
+Route::post('/todo-list/add', [App\Http\Controllers\TodoListController::class, 'addToTodoList'])->name('todo-list.add');
+
 
 
 // announcement in general dashboard

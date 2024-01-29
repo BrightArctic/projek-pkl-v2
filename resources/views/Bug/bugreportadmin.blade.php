@@ -49,27 +49,32 @@
     </div>
 
     <script>
-      function addToTodoList(bugReportId, name, subject, message) {
+     function addToTodoList(bugReportId) {
     // Make an AJAX request to send bug report information to the controller
     $.ajax({
         type: 'POST',
         url: '{{ route("todo-list.add") }}',
         data: {
             bugReportId: bugReportId,
-            name: name,
-            subject: subject,
-            message: message,
             _token: '{{ csrf_token() }}',
         },
-        success: function(response) {
-    console.log(response);
-},
-        error: function(xhr, status, error) {
+        success: function (response) {
+            console.log(response);
+            // Check if the request was successful and handle accordingly
+            if (response.success) {
+                // Optionally, you can perform additional actions upon success
+                alert('Bug report added to the to-do list.');
+            } else {
+                alert(response.message); // Display the error message
+            }
+        },
+        error: function (xhr, status, error) {
             // Handle error response if needed
             console.error(xhr.responseText);
         }
     });
 }
+
 
         function deleteBugReport(bugReportId) {
             if (confirm("Are you sure you want to delete this bug report?")) {

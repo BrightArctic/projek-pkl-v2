@@ -10,8 +10,9 @@ class CreateTodolistTable extends Migration
     {
         Schema::create('todolist', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
+            $table->string('name'); // Change this line to match the name field
+            $table->string('subject'); // Add this line for the subject field
+            $table->text('message'); // Add this line for the message field
             $table->timestamps();
         });
     }
