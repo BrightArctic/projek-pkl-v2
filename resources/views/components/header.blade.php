@@ -199,11 +199,13 @@
                                 class="rounded-circle">
                             <div class="is-online"></div>
                         </div>
+                        @foreach($todoListItems as $item)
                         <div class="dropdown-item-desc">
-                            <b>Kusnaedi</b>
-                            <p>Hello, Bro!</p>
-                            <div class="time">10 Hours Ago</div>
+                            <b>{{ $item->name }}</b>
+                            <p>{{ $item->message }}</p>
+                            <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
                         </div>
+                        @endforeach
                     </a>
                 <div class="dropdown-footer text-center">
                     <a href="{{ route('todo-list.index') }}">View All <i class="fas fa-chevron-right"></i></a>
