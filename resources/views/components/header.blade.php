@@ -191,22 +191,21 @@
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
                     <div class="dropdown-header">To-Do List</div>
                     <div class="dropdown-list-content dropdown-list-message">
-                        @if(isset($todoListItems))
-    @foreach($todoListItems as $item)
-        <a href="#" class="dropdown-item dropdown-item-unread">
-            <div class="dropdown-item-avatar">
-                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle">
-                <div class="is-online"></div>
-            </div>
-            <div class="dropdown-item-desc">
-                <b>{{ $item->name }}</b>
-                <p>{{ $item->message }}</p>
-                <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
-            </div>
-        </a>
-    @endforeach
-@endif
-
+                        @isset($todoListItems)
+                        @foreach($todoListItems as $item)
+                            <a href="#" class="dropdown-item dropdown-item-unread">
+                                <div class="dropdown-item-avatar">
+                                    <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle">
+                                    <div class="is-online"></div>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <b>{{ $item->name }}</b>
+                                    <p>{{ $item->message }}</p>
+                                    <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
+                                </div>
+                            </a>
+                            @endforeach
+                        @endisset
                     </div>
                     <div class="dropdown-footer text-center">
                         <a href="{{ route('todo-list.index') }}">View All <i class="fas fa-chevron-right"></i></a>
