@@ -184,34 +184,36 @@
         ?>
          <ul class="navbar-nav navbar-right">
             {{-- to do --}}
-            <li class="dropdown dropdown-list-toggle"><a href="#"
-                data-toggle="dropdown"
-                class="nav-link nav-link-lg message-toggle beep"><i class="fa-solid fa-list-check"></i></a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">To-Do List
-                </div>
-                <div class="dropdown-list-content dropdown-list-message">
-                    <a href="#"
-                        class="dropdown-item dropdown-item-unread">
-                        <div class="dropdown-item-avatar">
-                            <img alt="image"
-                                src="{{ asset('img/avatar/avatar-1.png') }}"
-                                class="rounded-circle">
-                            <div class="is-online"></div>
-                        </div>
-                        @foreach($todoListItems as $item)
-                        <div class="dropdown-item-desc">
-                            <b>{{ $item->name }}</b>
-                            <p>{{ $item->message }}</p>
-                            <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
-                        </div>
-                        @endforeach
-                    </a>
-                <div class="dropdown-footer text-center">
-                    <a href="{{ route('todo-list.index') }}">View All <i class="fas fa-chevron-right"></i></a>
-                </div>
+            <li class="dropdown dropdown-list-toggle">
+                <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep">
+                    <i class="fa-solid fa-list-check"></i>
+                </a>
+                <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                    <div class="dropdown-header">To-Do List</div>
+                    <div class="dropdown-list-content dropdown-list-message">
+                        @if(isset($todoListItems))
+    @foreach($todoListItems as $item)
+        <a href="#" class="dropdown-item dropdown-item-unread">
+            <div class="dropdown-item-avatar">
+                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle">
+                <div class="is-online"></div>
             </div>
-        </li>
+            <div class="dropdown-item-desc">
+                <b>{{ $item->name }}</b>
+                <p>{{ $item->message }}</p>
+                <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
+            </div>
+        </a>
+    @endforeach
+@endif
+
+                    </div>
+                    <div class="dropdown-footer text-center">
+                        <a href="{{ route('todo-list.index') }}">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </li>
+
         {{-- messages admin --}}
             <li class="dropdown dropdown-list-toggle"><a href="#"
                     data-toggle="dropdown"
