@@ -28,7 +28,7 @@
 
                             {{-- Button on the right side --}}
                             <div class="ml-auto">
-                                <button class="btn btn-primary" onclick=" ">Add to To-Do List</button>
+                                <button class="btn btn-primary" onclick="addToTodoList({{ $kridaran->id }}, '{{ $kridaran->name }}', '{{ $kridaran->message }}')">Add to To-Do List</button>
                             </div>
                             <div class="ml-2"> <!-- Add margin-left class for horizontal spacing -->
                                 <button class="btn btn-danger" onclick="deleteKridaran({{ $kridaran->id }})"> <i class="fas fa-trash"></i> </button>
@@ -41,6 +41,8 @@
     </div>
 
     <script>
+
+
         function deleteKridaran(kridaranId) {
             if (confirm("Are you sure you want to delete this Kridaran data?")) {
                 $.ajax({
@@ -60,7 +62,31 @@
                 });
             }
         }
-    </script>
+
+    function addToTodoList(kridaranId, name, message) {
+        // Construct the data to send to the server
+        var formData = new FormData();
+        formData.append('kridaranId', kridaranId); // Use kridaranId instead of bugReportId
+
+        // Perform AJAX request to add to the to-do list
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("todo-list.add") }}', // Replace with your actual route
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                alert(response.message);
+                // Optionally, you can remove the card from the view here if needed
+            },
+            error: function() {
+                alert('Failed to add Kridaran data to the to-do list. Please try again.');
+            }
+        });
+    }
+</script>
+
+
 @endsection
 
 @push('scripts')

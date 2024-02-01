@@ -16,6 +16,7 @@
                             {{-- Add your item details here --}}
                             <div class="media-body">
                                 <div class="media-title"><strong>Reporter: {{ $item->name }}</strong></div>
+                                <p class="mb-1"><strong>subject description:</strong> {{ $item->subject }}</p>
                                 <p class="mb-1"><strong>Description:</strong> {{ $item->message }}</p>
                                 {{-- Add more fields as needed --}}
                                 <!-- Assuming you have a 'created_at' field -->
@@ -24,7 +25,11 @@
 
                             {{-- Button on the right side --}}
                             <div class="ml-auto">
-                                <!-- Add functionality to edit or delete the item if needed -->
+                                <form action="{{ route('todo.delete', ['id' => $item->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -33,3 +38,4 @@
         </section>
     </div>
 @endsection
+

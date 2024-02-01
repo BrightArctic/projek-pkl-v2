@@ -200,6 +200,7 @@
                                 </div>
                                 <div class="dropdown-item-desc">
                                     <b>{{ $item->name }}</b>
+                                    <p>{{ $item->subject }}</p>
                                     <p>{{ $item->message }}</p>
                                     <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
                                 </div>

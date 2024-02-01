@@ -30,7 +30,7 @@
                                         <img src="{{ asset($bugReport->image_path) }}" alt="bug image" class="img-fluid rounded">
                                     </li>
                                 @endif
-
+                                 <div class="time"><strong>dikirim pada tanggal: {{ $bugReport->created_at }}</strong></div>
                                 <div class="time"><strong>{{ $bugReport->created_at->diffForHumans() }}</strong></div>
                             </div>
 

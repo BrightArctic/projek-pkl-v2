@@ -42,13 +42,25 @@ class TodoListController extends Controller
             'message' => $bugReport->message,
         ]);
 
+
         // Return a success response
         return response()->json(['success' => true, 'message' => 'Bug report added to the to-do list.']);
     } catch (\Exception $e) {
         // Return an error response if something went wrong
         return response()->json(['success' => false, 'message' => 'Failed to add bug report to the to-do list.']);
     }
+
 }
+
+public function delete($id)
+{
+    // Logic to delete the to-do list item with the given ID
+    TodoListItem::destroy($id);
+
+
+    return redirect()->back()->with('success', 'Item deleted successfully!');
+}
+
 
 
 }
