@@ -49,13 +49,15 @@
     </div>
 
     <script>
-     function addToTodoList(bugReportId) {
+     function addToTodoList(bugReportId, subject, message) {
     // Make an AJAX request to send bug report information to the controller
     $.ajax({
         type: 'POST',
         url: '{{ route("todo-list.add") }}',
         data: {
             bugReportId: bugReportId,
+            subject: subject, // Include the subject specific to bugreportadmin
+            message: message, // Include the message specific to bugreportadmin
             _token: '{{ csrf_token() }}',
         },
         success: function (response) {
@@ -74,6 +76,7 @@
         }
     });
 }
+
 
 
         function deleteBugReport(bugReportId) {

@@ -20,7 +20,7 @@
                                 <p class="mb-1"><strong>Description:</strong> {{ $item->message }}</p>
                                 {{-- Add more fields as needed --}}
                                 <!-- Assuming you have a 'created_at' field -->
-                                <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
+                                <div class="time"><strong> masalah/kritik dan saran dilaporkan pada tanggal:</strong> {{ $item->created_at}}</div>
                             </div>
 
                             {{-- Button on the right side --}}

@@ -63,27 +63,35 @@
             }
         }
 
-    function addToTodoList(kridaranId, name, message) {
-        // Construct the data to send to the server
-        var formData = new FormData();
-        formData.append('kridaranId', kridaranId); // Use kridaranId instead of bugReportId
-
-        // Perform AJAX request to add to the to-do list
-        $.ajax({
-            type: 'POST',
-            url: '{{ route("todo-list.add") }}', // Replace with your actual route
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                alert(response.message);
-                // Optionally, you can remove the card from the view here if needed
-            },
-            error: function() {
-                alert('Failed to add Kridaran data to the to-do list. Please try again.');
+        function addToTodoList(kridaranId, name, message) {
+    // Make an AJAX request to send kridaran information to the controller
+    $.ajax({
+        type: 'POST',
+        url: '{{ route("todo-list.add") }}',
+        data: {
+            kridaranId: kridaranId,
+            name: name, // Pass the 'name' parameter
+            message: message, // Pass the 'message' parameter
+            _token: '{{ csrf_token() }}',
+        },
+        success: function (response) {
+            console.log(response);
+            // Check if the request was successful and handle accordingly
+            if (response.success) {
+                // Optionally, you can perform additional actions upon success
+                alert('Kridaran added to the to-do list.');
+            } else {
+                alert(response.message); // Display the error message
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            // Handle error response if needed
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+
 </script>
 
 

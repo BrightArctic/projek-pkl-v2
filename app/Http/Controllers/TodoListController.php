@@ -7,60 +7,68 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\TodoListItem;
 use App\Models\BugReport;
 
-
 class TodoListController extends Controller
 {
     public function index()
     {
-        $todoListItems = TodoListItem::all(); // Fetch all items in the to-do list
-
+        $todoListItems = TodoListItem::all();
         return view('GeneralDashboard.todo-list', compact('todoListItems'));
     }
 
     public function addToTodoList(Request $request)
 {
-    // Validate the incoming request data
     $validator = Validator::make($request->all(), [
-        'bugReportId' => 'required|integer',
+        'bugReportId' => 'integer',
+        'kridaranId' => 'integer',
+        // Add validation rules for kridaran data if needed
     ]);
 
-    // Check if validation fails
     if ($validator->fails()) {
         return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
     }
 
-    // If validation passes, proceed with creating the to-do list item
     try {
-        // Retrieve bug report information based on bugReportId
-        $bugReport = BugReport::findOrFail($request->input('bugReportId'));
+        if ($request->has('bugReportId')) {
+            // Handle bug report data
+            $bugReport = BugReport::findOrFail($request->input('bugReportId'));
+            TodoListItem::create([
+                'bug_report_id' => $bugReport->id,
+                'name' => $bugReport->name,
+                'subject' => $bugReport->subject,
+                'message' => $bugReport->message,
+            ]);
+            return response()->json(['success' => true, 'message' => 'Bug report added to the to-do list.']);
+        } elseif ($request->has('kridaranId')) {
+            // Handle kridaran data here
+            $name = $request->input('name');
+            $message = $request->input('message');
 
-        // Create a new to-do list item using the bug report information
-        TodoListItem::create([
-            'bug_report_id' => $bugReport->id,
-            'name' => $bugReport->name,
-            'subject' => $bugReport->subject,
-            'message' => $bugReport->message,
-        ]);
+            // Set a default subject for Kridaran
+            $subject = 'null (dari kridaran)';
 
+            // Create todo list item for kridaran data
+            TodoListItem::create([
+                'name' => $name,
+                'subject' => $subject,
+                'message' => $message,
+            ]);
 
-        // Return a success response
-        return response()->json(['success' => true, 'message' => 'Bug report added to the to-do list.']);
+            return response()->json(['success' => true, 'message' => 'Kridaran data added to the to-do list.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Invalid request.']);
+        }
     } catch (\Exception $e) {
-        // Return an error response if something went wrong
-        return response()->json(['success' => false, 'message' => 'Failed to add bug report to the to-do list.']);
+        return response()->json(['success' => false, 'message' => 'Failed to add item to the to-do list.']);
     }
-
-}
-
-public function delete($id)
-{
-    // Logic to delete the to-do list item with the given ID
-    TodoListItem::destroy($id);
-
-
-    return redirect()->back()->with('success', 'Item deleted successfully!');
 }
 
 
 
+
+    public function delete($id)
+    {
+        TodoListItem::destroy($id);
+        return redirect()->back()->with('success', 'Item deleted successfully!');
+    }
 }
+
