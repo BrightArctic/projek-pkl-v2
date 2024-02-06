@@ -347,28 +347,32 @@
 <!-- Include jQuery from CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- JavaScript for Notification -->
+<!-- Your custom JavaScript code -->
 <script>
     $(document).ready(function () {
         // Function to update notification content with the provided message
         function showNotification(message) {
             // Prepend a new notification item with the provided message
             $('#notificationContent').prepend(
-                `<a href="#" class="dropdown-item dropdown-item-unread">
+                `<a href="#"
+                    class="dropdown-item dropdown-item-unread">
                     <div class="dropdown-item-icon bg-primary text-white">
                         <i class="fas fa-check"></i>
                     </div>
-                    <div class="dropdown-item-desc">${message}</div>
+                    <div class="dropdown-item-desc">
+                        ${message}
+                    </div>
                 </a>`
             );
+            // Save notification state to sessionStorage
+            sessionStorage.setItem('notificationVisible', true);
         }
 
-        // Check if Kridaran notification is set
-        @if(session()->has('kridaran_notification'))
-            // Show the Kridaran notification
-            // Modify this part to display your notification as needed
-            showNotification('New notification from Kridaran!');
-        @endif
+        // Check if notification was previously shown and restore state
+        var isNotificationVisible = sessionStorage.getItem('notificationVisible');
+        if (isNotificationVisible) {
+            $('#notificationContent').show();
+        }
 
         // Listen for AJAX success event and update notification
         $(document).ajaxSuccess(function (event, xhr, settings) {
@@ -379,8 +383,18 @@
                 showNotification('A new item was added to the to-do list.');
             }
         });
+
+        // Handle click event on "Mark All As Read" button
+        $('#markAllReadBtn').on('click', function () {
+            // Toggle visibility of notification content
+            $('#notificationContent').toggle();
+            // Remove notification state from sessionStorage
+            sessionStorage.removeItem('notificationVisible');
+        });
     });
 </script>
+
+
 
 
 
