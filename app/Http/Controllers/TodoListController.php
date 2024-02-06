@@ -53,6 +53,9 @@ class TodoListController extends Controller
                 'message' => $message,
             ]);
 
+            // Set session variable to indicate new item from Kridaran
+            session()->flash('kridaran_notification', true);
+
             return response()->json(['success' => true, 'message' => 'Kridaran data added to the to-do list.']);
         } else {
             return response()->json(['success' => false, 'message' => 'Invalid request.']);
