@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blank Page')
+@section('title', 'Bug Report')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -48,7 +48,7 @@
                                         <textarea class="form-control" name="message" data-height="150" required=""></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Masukan Screenshot (opsional)</div></label>
+                                        <label>Masukan Screenshot (opsional)</label>
                                         <input type="file" class="form-control-file" name="image">
                                     </div>
 
@@ -81,7 +81,7 @@
             processData: false, // Prevent jQuery from automatically processing data
             contentType: false, // Prevent jQuery from setting contentType
             success: function () {
-                // Display success message in the general-dashboard
+                // Display success message
                 alert('Bug reported successfully! Redirecting to dashboard...');
                 window.location.href = '/dashboard-general-dashboard';
             },

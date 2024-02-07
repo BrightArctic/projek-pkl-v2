@@ -27,7 +27,7 @@
                                 @if($bugReport->image_path)
                                     <li class="media">
                                         {{-- Use the hashed image path when displaying the image --}}
-                                        <img src="{{ url($bugReport->image_path) }}" alt="bug image" class="img-fluid rounded">
+                                        <img src="{{ url($bugReport->image_path) }}" alt="image didnt load correctly" width="300" height="200" class="img-fluid rounded">
                                     </li>
                                 @endif
                                  <div class="time"><strong>dikirim pada tanggal: {{ $bugReport->created_at }}</strong></div>
@@ -36,7 +36,8 @@
 
                             {{-- Button on the right side --}}
                             <div class="ml-auto">
-                                <button class="btn btn-primary" onclick="addToTodoList({{ $bugReport->id }}, '{{ $bugReport->name }}', '{{ $bugReport->subject }}', '{{ $bugReport->message }}')">Add to To-Do List</button>
+                                <button class="btn btn-primary" onclick="addToTodoList({{ $bugReport->id }}, '{{ $bugReport->name }}', '{{ $bugReport->subject }}', '{{ $bugReport->message }}', '{{ $bugReport->image_path }}')">Add to To-Do List</button>
+
                             </div>
                             <div class="ml-2">
                                 <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})"><i class="fas fa-trash"></i></button>
@@ -49,15 +50,16 @@
     </div>
 
     <script>
-     function addToTodoList(bugReportId, subject, message) {
+     function addToTodoList(bugReportId, subject, message, imagePath) {
     // Make an AJAX request to send bug report information to the controller
     $.ajax({
         type: 'POST',
         url: '{{ route("todo-list.add") }}',
         data: {
             bugReportId: bugReportId,
-            subject: subject, // Include the subject specific to bugreportadmin
-            message: message, // Include the message specific to bugreportadmin
+            subject: subject,
+            message: message,
+            image_path: imagePath, // Include the image path
             _token: '{{ csrf_token() }}',
         },
         success: function (response) {
@@ -76,6 +78,7 @@
         }
     });
 }
+
 
 
 

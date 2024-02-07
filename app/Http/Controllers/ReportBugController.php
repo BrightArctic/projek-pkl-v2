@@ -35,11 +35,10 @@ class ReportBugController extends Controller
 
       // Check if an image is provided
       if ($request->hasFile('image')) {
-        // Upload the image and store its path
-        $imagePath = $request->file('image')->store('bug_reports', 'public');
-        // Hash the image path before saving to the database
-        $hashedImagePath = Hash::make($imagePath);
-        $bugReportData['image_path'] = $hashedImagePath;
+        // Upload the image to Cloudinary and store its URL
+        $uploadedFile = $request->file('image');
+        $imagePath = cloudinary()->upload($uploadedFile->getRealPath())->getSecurePath();
+        $bugReportData['image_path'] = $imagePath;
     }
         // Logic to handle bug report submission
         // You can save the bug report to the database, send emails, etc.
