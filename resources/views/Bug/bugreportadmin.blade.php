@@ -27,7 +27,7 @@
                                 @if($bugReport->image_path)
                                     <li class="media">
                                         {{-- Use the hashed image path when displaying the image --}}
-                                        <img src="{{ asset($bugReport->image_path) }}" alt="bug image" class="img-fluid rounded">
+                                        <img src="{{ url($bugReport->image_path) }}" alt="bug image" class="img-fluid rounded">
                                     </li>
                                 @endif
                                  <div class="time"><strong>dikirim pada tanggal: {{ $bugReport->created_at }}</strong></div>

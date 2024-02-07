@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 mx-auto my-5">
                         <div class="card">
-                            <form id="bugReportForm" method="post" action="{{ route('bugreport.submit') }}">
+                            <form id="bugReportForm" method="post" action="{{ route('bugreport.submit') }}" enctype="multipart/form-data">
                                 @csrf <!-- Add the CSRF token for security -->
                                 <div class="card-header">
                                     <h4>FORM BUG REPORT</h4>
@@ -65,27 +65,32 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            // Intercept the form submission
-            $('#bugReportForm').submit(function (e) {
-                e.preventDefault();
+       $(document).ready(function () {
+    // Intercept the form submission
+    $('#bugReportForm').submit(function (e) {
+        e.preventDefault();
 
-                // Perform AJAX form submission
-                $.ajax({
-                    type: 'post',
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function () {
-                        // Display success message in the general-dashboard
-                        alert('Bug reported successfully! Redirecting to dashboard...');
-                        window.location.href = '/dashboard-general-dashboard';
-                    },
-                    error: function () {
-                        // Handle error if the form submission fails
-                        alert('Bug report submission failed. Please try again.');
-                    }
-                });
-            });
+        // Create FormData object to store form data, including files
+        var formData = new FormData(this);
+
+        // Perform AJAX form submission
+        $.ajax({
+            type: 'post',
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false, // Prevent jQuery from automatically processing data
+            contentType: false, // Prevent jQuery from setting contentType
+            success: function () {
+                // Display success message in the general-dashboard
+                alert('Bug reported successfully! Redirecting to dashboard...');
+                window.location.href = '/dashboard-general-dashboard';
+            },
+            error: function () {
+                // Handle error if the form submission fails
+                alert('Bug report submission failed. Please try again.');
+            }
         });
+    });
+});
     </script>
 @endsection
