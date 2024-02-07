@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Send Message')
+@section('title', 'Blank Page')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Kritik Dan Saran</h1>
+                <h1>MESSAGE FORM</h1>
                 <div class="section-header-breadcrumb">
                 </div>
             </div>
@@ -19,30 +19,32 @@
             <div class="section-body">
                 <h2 class="section-title">Silahkan Isi Pesan!</h2>
                 <p class="section-lead">
-                    Isilah Kritik Dan Saran Di Dalam Kolom Pesan
+                    Isi pesan sesuai yang di Tuju.
                 </p>
 
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 mx-auto my-5">
                         <div class="card">
-                            <form id="kridaranForm" method="post" action="{{ route('submit.kridaran') }}">
+                            <form id="bugReportForm" method="post" action="{{ route('submit.message') }}">
                                 @csrf <!-- Add the CSRF token for security -->
                                 <div class="card-header">
-                                    <h4>Form Kritik Dan Saran</h4>
+                                    <h4>FORM MESSAGE</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Nama Anda</label>
-                                        <input type="text" class="form-control" name="name" placeholder="budi" required="">
+                                        <label>Kirim Ke User: (email user tersebut)</label>
+                                        <input type="email" class="form-control" name="email" placeholder="andiahmad123@gmail.com" required="">
                                     </div>
                                     <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="buditirtayasa@gmail.com" required="">
+                                        <label>Subject</label>
+                                        <input type="text" class="form-control" name="subject" placeholder="lorem">
                                     </div>
                                     <div class="form-group mb-0">
-                                        <label>Kritik Dan Saran Anda:</label>
-                                        <textarea class="form-control" name="message" data-height="150" placeholder="saran saya adalah..." required=""></textarea>
+                                        <label> Kirim Pesan Yang Ingin Disampaikan:</label>
+                                        <textarea class="form-control" name="message" data-height="150" placeholder="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum suscipit facilis odit rem, repellendus laboriosam nam consequatur eos quasi debitis nulla. Autem amet velit sapiente, excepturi iure nulla molestias error?" required=""></textarea>
                                     </div>
+
+
                                 </div>
                                 <div class="card-footer d-flex justify-content-center">
                                     <button class="btn btn-primary" type="submit" style="width: 50%; font-size: 105%;">Submit</button>
@@ -58,7 +60,7 @@
     <script>
         $(document).ready(function () {
             // Intercept the form submission
-           $('#kridaranForm').submit(function (e) {
+            $('#bugReportForm').submit(function (e) {
                 e.preventDefault();
 
                 // Perform AJAX form submission

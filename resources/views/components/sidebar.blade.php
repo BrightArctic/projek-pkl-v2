@@ -44,6 +44,14 @@
             </li>
         </ul>
 
+
+        <li class="nav-item">
+            <a href="{{ url('messagesboard') }}" class="nav-link {{ Request::is('messagesboard') ? 'active' : '' }}">
+                <i class="fas fa-paper-plane"></i></i>kirim pesan
+            </a>
+        </li>
+
+        {{-- admin report --}}
         <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-flag"></i><span>Report</span>
@@ -69,6 +77,7 @@
                         </li>
                     </ul>
         </li>
+        {{-- end of admin report --}}
 @endif
 
 {{-- mahasiswa --}}

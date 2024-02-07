@@ -37,10 +37,11 @@ use App\Http\Controllers\KridaranController;
 //general dashboard
 
 //to do-list in general dashboard
+Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 Route::get('/todo-list', [App\Http\Controllers\TodoListController::class, 'index'])->name('todo-list.index');
 Route::post('/todo-list/add', [App\Http\Controllers\TodoListController::class, 'addToTodoList'])->name('todo-list.add');
 Route::delete('/todo/{id}', [App\Http\Controllers\TodoListController::class, 'delete'])->name('todo.delete');
-
+});
 
 
 // announcement in general dashboard
@@ -427,6 +428,8 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::delete('/bugreport/delete/{id}', [ReportBugController::class, 'deleteBugReport'])->name('bugreport.delete');
 });
 
+Route::get('/messagesboard', [App\Http\Controllers\MessagesBoardController::class, 'showPostMessages'])->name('messages.form');
+Route::post('/submit-message', [MessagesBoardController::class, 'submitMessage'])->name('submit.message');
 
 
 

@@ -185,7 +185,7 @@
          <ul class="navbar-nav navbar-right">
             {{-- to do --}}
             <li class="dropdown dropdown-list-toggle">
-                <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep">
+                <a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle @if($todoListItems->isEmpty()) no-beep @else beep @endif">
                     <i class="fa-solid fa-list-check"></i>
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -205,7 +205,7 @@
                                     <div class="time"><strong>{{ $item->created_at->diffForHumans() }}</strong></div>
                                 </div>
                             </a>
-                            @endforeach
+                        @endforeach
                         @endisset
                     </div>
                     <div class="dropdown-footer text-center">
@@ -213,6 +213,7 @@
                     </div>
                 </div>
             </li>
+
 
         {{-- messages admin --}}
             <li class="dropdown dropdown-list-toggle"><a href="#"
@@ -354,13 +355,21 @@
         function showNotification(message) {
             // Prepend a new notification item with the provided message
             $('#notificationContent').prepend(
-                `<a href="#"
+                `<a href="#" class="dropdown-item dropdown-item-unread">
+                    <div class="dropdown-item-icon bg-primary text-white">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="dropdown-item-desc">${message}</div>
+                </a>
+
+                <a href="#"
                     class="dropdown-item dropdown-item-unread">
                     <div class="dropdown-item-icon bg-primary text-white">
                         <i class="fas fa-check"></i>
                     </div>
                     <div class="dropdown-item-desc">
                         ${message}
+                        <div class="time text-primary">2 Min Ago</div>
                     </div>
                 </a>`
             );
