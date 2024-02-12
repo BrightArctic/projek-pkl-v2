@@ -20,20 +20,26 @@
                         <div class="card-body">
                             <form action="{{ route('insertbarang') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="image">Foto</label>
-                                    <div id="camera" class="img-fluid"></div>
-                                    <br/>
-                                    <input type=button class="btn btn-sm btn-primary" value="Take Snapshot" onClick="take_snapshot()">
-                                    <input type="hidden" name="image" class="image-tag">
-                                    <div id="results">Your captured image will appear here...</div>
+    <div class="mb-3">
+        <label for="image">Foto</label>
+        <div id="camera" class="img-fluid"></div>
+        <br/>
+        <input type="button" class="btn btn-sm btn-primary" value="Take Snapshot" onClick="takeSnapshot()">
+        <input type="hidden" name="image" class="image-tag">
+        <div id="results">Your captured image will appear here...</div>
 
-                                    @error('image')
-                                        <div class="alert alert-danger" role="alert">
-                                            Data Harus diisi!
-                                        </div>
-                                    @enderror
-                                </div>
+        <div id="fileInputWrapper" class="form-group">
+            <label> Atau Masukan Foto</label>
+            <input type="file" class="form-control-file" name="fileInput" id="fileInput" onchange="previewFile()">
+
+        </div>
+
+        @error('image')
+            <div class="alert alert-danger" role="alert">
+                Data Harus diisi!
+            </div>
+        @enderror
+    </div>
 
                                 <div class="row">
                                     <div class="form-group col-6">
@@ -127,21 +133,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
 <script type='text/javascript'>
-        Webcam.set({
-                width: 350,
-                height: 250,
-                image_format: 'jpeg',
-                jpeg_quality: 90
-            });
+    function previewFile() {
+        var preview = document.getElementById('results');
+        var file = document.getElementById('fileInput').files[0];
+        var reader = new FileReader();
 
-            Webcam.attach('#camera');
-            function take_snapshot() {
-                Webcam.snap( function(data_uri) {
-                    $(".image-tag").val(data_uri);
-                    document.getElementById('results').innerHTML = '<img src="'+data_uri+'" class="img-fluid mt-4"/>';
-                } );
-            }
-    </script>
+        reader.onloadend = function() {
+            preview.innerHTML = '<img src="' + reader.result + '" class="img-fluid mt-4"/>';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.innerHTML = 'Your captured image will appear here...';
+        }
+    }
+
+    Webcam.set({
+        width: 350,
+        height: 250,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+
+    Webcam.attach('#camera');
+
+    function takeSnapshot() {
+        Webcam.snap(function(data_uri) {
+            console.log("Image captured:", data_uri); // Debugging: Log the captured image data
+            $(".image-tag").val(data_uri); // Update the hidden input field with the base64-encoded image data
+            $("#results").html('<img src="' + data_uri + '" class="img-fluid mt-4"/>'); // Display the captured image
+        });
+    }
+</script>
+
     @endsection
 </body>
 </html>

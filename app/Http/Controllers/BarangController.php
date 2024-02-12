@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Constraint\IsEmpty;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class BarangController extends Controller
@@ -122,7 +123,7 @@ class BarangController extends Controller
                 ]);
         }
         return redirect('barang')->with('toast_success', 'Data Berhasil Di Edit!');
-    }   
+    }
 
     public function destroy($id){
     $data = Barang::find($id);
