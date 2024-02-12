@@ -16,18 +16,28 @@ class TodoListController extends Controller
     }
 
     public function addToTodoList(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'bugReportId' => 'integer',
-        'kridaranId' => 'integer',
-        // Add validation rules for kridaran data if needed
-    ]);
+    {
+        $validator = Validator::make($request->all(), [
+            'bugReportId' => 'integer',
+            'kridaranId' => 'integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for image
+            // Add validation rules for other fields if needed
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
-    }
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
 
     try {
+        $todoItemData = [];
+
+        // Check if an image is provided
+        if ($request->hasFile('image')) {
+            // Upload the image to Cloudinary and store its URL
+            $uploadedFile = $request->file('image');
+            $imagePath = cloudinary()->upload($uploadedFile->getRealPath())->getSecurePath();
+            $todoItemData['image_path'] = $imagePath;
+        }
         if ($request->has('bugReportId')) {
             // Handle bug report data
             $bugReport = BugReport::findOrFail($request->input('bugReportId'));

@@ -355,14 +355,7 @@
         function showNotification(message) {
             // Prepend a new notification item with the provided message
             $('#notificationContent').prepend(
-                `<a href="#" class="dropdown-item dropdown-item-unread">
-                    <div class="dropdown-item-icon bg-primary text-white">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="dropdown-item-desc">${message}</div>
-                </a>
-
-                <a href="#"
+                `<a href="#"
                     class="dropdown-item dropdown-item-unread">
                     <div class="dropdown-item-icon bg-primary text-white">
                         <i class="fas fa-check"></i>

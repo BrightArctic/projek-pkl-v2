@@ -37,7 +37,6 @@
                             {{-- Button on the right side --}}
                             <div class="ml-auto">
                                 <button class="btn btn-primary" onclick="addToTodoList({{ $bugReport->id }}, '{{ $bugReport->name }}', '{{ $bugReport->subject }}', '{{ $bugReport->message }}', '{{ $bugReport->image_path }}')">Add to To-Do List</button>
-
                             </div>
                             <div class="ml-2">
                                 <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})"><i class="fas fa-trash"></i></button>
@@ -50,8 +49,7 @@
     </div>
 
     <script>
-     function addToTodoList(bugReportId, subject, message, imagePath) {
-    // Make an AJAX request to send bug report information to the controller
+   function addToTodoList(bugReportId, subject, message, imagePath) {
     $.ajax({
         type: 'POST',
         url: '{{ route("todo-list.add") }}',

@@ -13,6 +13,7 @@ class CreateTodolistTable extends Migration
             $table->string('name'); // Change this line to match the name field
             $table->string('subject'); // Add this line for the subject field
             $table->text('message'); // Add this line for the message field
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
