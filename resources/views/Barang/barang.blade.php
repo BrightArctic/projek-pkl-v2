@@ -31,6 +31,9 @@
                         <div class="card-body">
                         <div class="table-responsive">
                             <table class="table-striped table" id="table-1">
+                                <button type="button" class="btn btn-primary btn-refresh mt-2 mb-2">
+                                    Refresh
+                                </button>
                                 <thead>
                                     <tr>
                                         <th scope="col" class="text-center">ID</th>
@@ -97,6 +100,16 @@
 @endsection
 
 @push('scripts')
+{{-- refresh button script --}}
+<script>
+    $(document).ready(function() {
+        // Function to handle refresh button click event
+        $('.btn-refresh').click(function() {
+            // Reload the page
+            location.reload();
+        });
+    });
+</script>
 <!-- JS Libraies -->
 <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
