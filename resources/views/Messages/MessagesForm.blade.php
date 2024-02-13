@@ -26,15 +26,16 @@
                     <div class="col-12 col-md-6 col-lg-6 mx-auto my-5">
                         <div class="card">
                             <form id="bugReportForm" method="post" action="{{ route('submit.message') }}">
-                                @csrf <!-- Add the CSRF token for security -->
+                                @csrf
                                 <div class="card-header">
                                     <h4>FORM MESSAGE</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Kirim Ke User: (email user tersebut)</label>
+                                        <label>Kirim Ke User: (Masukkan alamat email penerima)</label>
                                         <input type="email" class="form-control" name="email" placeholder="andiahmad123@gmail.com" required="">
                                     </div>
+
                                     <div class="form-group">
                                         <label>Subject</label>
                                         <input type="text" class="form-control" name="subject" placeholder="lorem">

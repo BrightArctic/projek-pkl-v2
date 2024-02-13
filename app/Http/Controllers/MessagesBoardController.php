@@ -4,32 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class MessagesBoardController extends Controller
 {
-     public function showPostMessages()
+    public function showPostMessages()
     {
-        return view('Messages.MessagesForm'); // Assuming you have a bugreport.blade.php file
+        return view('Messages.MessagesForm'); // Assuming you have a MessagesForm.blade.php file
     }
 
     public function submitMessage(Request $request)
-{
-    // Validate form data
-    $validatedData = $request->validate([
-        'email' => 'required|email',
-        'subject' => 'required|string|max:255',
-        'message' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
 
-    // Create a new message instance
-    $message = new Message();
-    $message->email = $validatedData['email'];
-    $message->subject = $validatedData['subject'];
-    $message->message = $validatedData['message'];
-    $message->save();
+        $user = User::where('email', $request->input('email'))->first();
 
-    // Optionally, you can return a response or redirect
-    return redirect()->back()->with('success', 'Message sent successfully!');
-}
+        if (!$user) {
+            return response()->json(['error' => 'User not found.'], 404);
+        }
 
+        $message = new Message([
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+        ]);
+
+        $user->messages()->save($message);
+
+        // Save the message in the database
+        $message->save();
+
+        return response()->json(['message' => 'Message sent successfully.']);
+    }
+
+    public function showUserMessages()
+    {
+        // Retrieve messages for the authenticated user
+        $userMessages = Message::where('user_id', Auth::id())->get();
+
+        // Pass the messages to a view for display
+        return view('user_messages', ['messages' => $userMessages]);
+    }
 }

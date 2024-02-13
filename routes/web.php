@@ -19,6 +19,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Controllers\ReportBugController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\KridaranController;
+use App\Http\Controllers\MessagesBoardController;
 
 
 
@@ -428,9 +429,10 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::delete('/bugreport/delete/{id}', [ReportBugController::class, 'deleteBugReport'])->name('bugreport.delete');
 });
 
-Route::get('/messagesboard', [App\Http\Controllers\MessagesBoardController::class, 'showPostMessages'])->name('messages.form');
-Route::post('/submit-message', [MessagesBoardController::class, 'submitMessage'])->name('submit.message');
 
+Route::get('messagesboard', [MessagesBoardController::class, 'showPostMessages'])->name('messagesboard');
+Route::post('/submit-message', [App\Http\Controllers\MessagesBoardController::class, 'submitMessage'])->name('submit.message');
+Route::get('/user-messages', [App\Http\Controllers\MessagesBoardController::class, 'showUserMessages'])->name('user.messages');
 
 
 // testing
