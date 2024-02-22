@@ -44,12 +44,19 @@
             </li>
         </ul>
 
-
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-paper-plane"></i><span>Kirim Pesan</span>
+            </a>
+            <ul class="dropdown-menu">
         <li class="nav-item">
             <a href="{{ route('messagesboard') }}" class="nav-link {{ Request::is('messagesboard') ? 'active' : '' }}">
-                <i class="fas fa-paper-plane"></i>kirim pesan
+                <i class="fas fa-paper-plane"></i> kirim pesan
             </a>
         </li>
+    </ul>
+    </li>
+
 
         {{-- admin report --}}
         <li class="nav-item dropdown">
