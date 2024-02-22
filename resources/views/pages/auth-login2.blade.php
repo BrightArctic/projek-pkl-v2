@@ -3,29 +3,90 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-        name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Login</title>
     <link rel="shortcut icon" href="img/pnj.ico" type="image/x-icon">
 
     <!-- General CSS Files -->
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('library/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
 
     <!-- Template CSS -->
-    <link rel="stylesheet"
-        href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+    background-color: #fff; /* Set a default background color */
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ asset("img/unsplash/pnj.jpg") }}'); /* Background image */
+    background-size: cover; /* Scale down the background image to cover the entire screen */
+    background-position: center; /* Center the background image */
+    z-index: -1; /* Ensure the background stays behind other content */
+}
+
+.content-container {
+    position: relative;
+    z-index: 1; /* Ensure the content is above the background */
+}
+
+@media (max-width: 767px) {
+    .background-container {
+        filter: blur(10px); /* Apply the blur effect only on mobile devices */
+        -webkit-filter: blur(10px); /* For older versions of webkit browsers */
+    }
+
+    .col-lg-4 {
+        display: none; /* Hide the login form column on phones */
+    }
+
+    .col-lg-8 {
+        width: 100%; /* Make the background image column full width on phones */
+    }
+}
+
+        @media (max-width: 767px) {
+            .col-lg-4 {
+                display: none; /* Hide the login form column on phones */
+            }
+
+            .col-lg-8 {
+                width: 100%; /* Make the background image column full width on phones */
+            }
+
+            body {
+                background-size: cover; /* Scale down the background image to cover the entire screen */
+                background-position: center; /* Center the background image */
+                background-image: url('{{ asset("img/unsplash/pnj.jpg") }}'); /* Background image */
+                z-index: -1; /* Ensure the background stays behind other content */
+            }
+
+            /* Apply blur effect only on mobile devices */
+            body::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: inherit;
+                filter: blur(10px); /* Apply the blur effect */
+                -webkit-filter: blur(10px); /* For older versions of webkit browsers */
+                z-index: -2; /* Ensure the blur layer stays behind other content */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -114,12 +175,11 @@
                             <div class="mt-5 text-center">
                                 Don't have an account? <a href="{{route("register")}}">Create new one</a>
                             </div>
+
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 position-relative overlay-gradient-bottom order-1 "
-                    style="background-size: cover; background-position: center; overflow-y: hidden;"
-                    data-background="{{ asset('img/unsplash/pnj.jpg') }}">
+                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 position-relative overlay-gradient-bottom order-1" style="background-size: cover; background-position: center; overflow-y: hidden;" data-background="{{ asset('img/unsplash/pnj.jpg') }}">
                     {{-- <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
                             <div class="mb-5 pb-3">
@@ -132,9 +192,11 @@
                                 class="text-light bb"
                                 target="_blank"
                                 href="https://unsplash.com">Unsplash</a> --}}
+                </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     </div>

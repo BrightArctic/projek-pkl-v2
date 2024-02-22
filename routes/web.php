@@ -430,7 +430,7 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 });
 
 
-Route::get('messagesboard', [MessagesBoardController::class, 'showPostMessages'])->name('messagesboard');
+Route::get('messagesboard', [App\Http\Controllers\MessagesBoardController::class, 'showPostMessages'])->name('messagesboard');
 Route::post('/submit-message', [App\Http\Controllers\MessagesBoardController::class, 'submitMessage'])->name('submit.message');
 Route::get('/user-messages', [App\Http\Controllers\MessagesBoardController::class, 'showUserMessages'])->name('user.messages');
 

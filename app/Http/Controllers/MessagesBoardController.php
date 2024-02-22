@@ -6,6 +6,7 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class MessagesBoardController extends Controller
 {
@@ -15,31 +16,35 @@ class MessagesBoardController extends Controller
     }
 
     public function submitMessage(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email',
+        'subject' => 'required',
+        'message' => 'required',
+    ]);
 
-        $user = User::where('email', $request->input('email'))->first();
+    Log::info('Submit message request received.'); // Log a message to indicate the request is received
 
-        if (!$user) {
-            return response()->json(['error' => 'User not found.'], 404);
-        }
+    // Debugging: Check the data received from the form
+    Log::info('Form data:', $request->all());
 
-        $message = new Message([
-            'email' => $request->input('email'),
-            'subject' => $request->input('subject'),
-            'message' => $request->input('message'),
-        ]);
+    $user = User::where('email', $request->input('email'))->first();
 
-        $user->messages()->save($message);
+    if (!$user) {
+        Log::error('User not found for email: ' . $request->input('email')); // Log an error if user not found
+        return response()->json(['error' => 'User not found for email: ' . $request->input('email')], 404);
+    }
 
-        // Save the message in the database
-        $message->save();
+    $message = new Message([
+        'email' => $request->input('email'),
+        'subject' => $request->input('subject'),
+        'message' => $request->input('message'),
+    ]);
 
-        return response()->json(['message' => 'Message sent successfully.']);
+    // Save the message in the database
+    $message->save();
+
+    return response()->json(['message' => 'Message sent successfully.']);
     }
 
     public function showUserMessages()

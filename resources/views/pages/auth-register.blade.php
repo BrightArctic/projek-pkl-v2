@@ -84,7 +84,7 @@
                             <button type="button" class="btn btn-primary" class="reload" id="reload">
                                 &#x21bb;
                             </button>
-                        </div>    
+                        </div>
                     </div>
                     <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <input id="captcha" type="text" class="form-control form-control-user" required placeholder="Enter Captcha" name="captcha">
