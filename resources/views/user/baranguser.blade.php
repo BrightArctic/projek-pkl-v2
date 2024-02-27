@@ -20,6 +20,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
+                            <div class="dataTables_length" id="table-abc_length">
+                                <label>
+                                    Filter by Category:
+                                    <select name="category-filter" id="category-filter" class="custom-select custom-select-sm form-control form-control-sm">
+                                        <option value="">All Categories</option>
+                                        <option value="kursi">Kursi</option>
+                                        <!-- Add more options for other categories as needed -->
+                                    </select>
+                                </label>
+                            </div>
                             <table class="table-striped table nowrap" id="table-abc" style="width: 100%">
                                 <thead>
                                     <tr>

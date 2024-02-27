@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->integer('stock');
             $table->integer('anggaran');
-            $table->string('scan');
+            $table->string('scan')->default('default_value');
             $table->enum('kepemilikan', ['Milik Negara', 'Milik PNJ']);
-            $table->string('serialnumber');
+            $table->string('serialnumber')->nullable(); // Making serialnumber nullable.. at least for now
             $table->timestamps();
         });
     }

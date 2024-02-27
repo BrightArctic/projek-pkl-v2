@@ -94,7 +94,7 @@
         <section class="section">
             <div class="d-flex align-items-stretch flex-wrap">
                 <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
-                    <div class="m-3 p-4">
+                    <div class="">
                         <img src="{{ asset('img/pnj.ico') }}"
                             alt="logo"
                             width="80"
@@ -180,18 +180,6 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 min-vh-100 position-relative overlay-gradient-bottom order-1" style="background-size: cover; background-position: center; overflow-y: hidden;" data-background="{{ asset('img/unsplash/pnj.jpg') }}">
-                    {{-- <div class="absolute-bottom-left index-2">
-                        <div class="text-light p-5 pb-2">
-                            <div class="mb-5 pb-3">
-                                <h1 class="display-4 font-weight-bold mb-2">Good Morning</h1>
-                                <h5 class="font-weight-normal text-muted-transparent">Bali, Indonesia</h5>
-                            </div> --}}
-                            {{-- Photo by <a class="text-light bb"
-                                target="_blank"
-                                href="https://unsplash.com/photos/a8lTjWJJgLA">Justin Kauffman</a> on <a
-                                class="text-light bb"
-                                target="_blank"
-                                href="https://unsplash.com">Unsplash</a> --}}
                 </div>
                         </div>
                     </div>

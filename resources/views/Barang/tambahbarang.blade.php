@@ -1,3 +1,4 @@
+<!-- tambahbarang.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Tambah Barang')
@@ -24,14 +25,14 @@
                                         <label for="image">Foto</label>
                                         <div id="camera" class="img-fluid"></div>
                                         <br/>
-                                        <input type="button" class="btn btn-sm btn-primary" value="Take Snapshot" onClick="takeSnapshot()">
-                                        <input type="hidden" name="image" class="image-tag">
+                                        <input type="button" class="btn btn-sm btn-primary" value="Take Snapshot" onClick="takeSnapshot()" id="snapshotBtn">
+                                        <input type="hidden" name="image_webcam" class="image-tag">
                                         <div id="results">Your captured image will appear here...</div>
 
-                                        <div id="fileInputWrapper" class="form-group">
-                                            <label> Atau Masukan Foto</label>
-                                            <input type="file" class="form-control-file" name="fileInput" id="fileInput" onchange="handleFileInput()">
-
+                                        <!-- Single file input field -->
+                                        <div class="mb-3">
+                                            <label for="image_file">Atau Masukan Foto</label>
+                                            <input type="file" class="form-control-file" name="image_file" id="fileInput" onchange="handleFileInput()">
                                         </div>
 
                                         @error('image')
@@ -43,11 +44,14 @@
 
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
-                                            <input type="text" name="nama_barang" class="form-control
+                                            <div id="exampleInputEmail1">
+                                                <label for="nama_barang">Nama Barang</label>
+                                                <input type="text" id="nama_barang" name="nama_barang" class="form-control">
+                                            </div>
                                             @error('nama_barang')
                                                 is-invalid
-                                            @enderror" id="" aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
+                                            @enderror
+                                            <id="" aria-describedby="emailHelp" value="{{ old('nama_barang') }}">
                                             @error('nama_barang')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -129,12 +133,20 @@
     </section>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/webcamjs"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
 <script type='text/javascript'>
-    function previewFile() {
+    Webcam.set({
+        width: 350,
+        height: 250,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+
+    Webcam.attach('#camera');
+
+    function previewFile(file) {
         var preview = document.getElementById('results');
-        var file = document.getElementById('fileInput').files[0];
         var reader = new FileReader();
 
         reader.onloadend = function() {
@@ -147,39 +159,35 @@
             document.getElementById('fileInputWrapper').getElementsByTagName('label')[0].style.display = 'none';
             // Hide the camera
             document.getElementById('camera').style.display = 'none';
+            // Hide the "Take Snapshot" button
+            document.getElementById('snapshotBtn').style.display = 'none';
         } else {
             preview.innerHTML = 'Your captured image will appear here...';
         }
     }
 
-    Webcam.set({
-        width: 350,
-        height: 250,
-        image_format: 'jpeg',
-        jpeg_quality: 90
-    });
-
-    Webcam.attach('#camera');
+    function handleFileInput() {
+        var file = document.getElementById('fileInput').files[0];
+        // Close the webcam
+        Webcam.reset();
+        // Hide the "Take Snapshot" button
+        document.getElementById('snapshotBtn').style.display = 'none';
+        // Show the submit button
+        document.getElementById('toastr-2').style.display = 'block';
+        // Call previewFile() to show the selected file preview
+        previewFile(file);
+    }
 
     function takeSnapshot() {
         Webcam.snap(function(data_uri) {
             console.log("Image captured:", data_uri); // Debugging: Log the captured image data
             $(".image-tag").val(data_uri); // Update the hidden input field with the base64-encoded image data
             $("#results").html('<img src="' + data_uri + '" class="img-fluid mt-4"/>'); // Display the captured image
+            // Hide the "Take Snapshot" button
+            document.getElementById('snapshotBtn').style.display = 'none';
+            // Show the submit button
+            document.getElementById('toastr-2').style.display = 'block';
         });
-    }
-
-    function handleFileInput() {
-        // Close the webcam
-        Webcam.reset();
-        // Hide the snapshot button
-        $(".btn-primary").hide();
-        // Hide the text
-        document.getElementById('fileInputWrapper').getElementsByTagName('label')[0].style.display = 'none';
-        // Hide the camera
-        document.getElementById('camera').style.display = 'none';
-        // Call previewFile() to show the selected file preview
-        previewFile();
     }
 </script>
 @endsection

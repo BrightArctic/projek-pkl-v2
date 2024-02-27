@@ -1,5 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php
+namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\Peminjam;
 use Alert;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Constraint\IsEmpty;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 
 class BarangController extends Controller
@@ -44,64 +47,53 @@ class BarangController extends Controller
         return view('Barang.tambahbarang' , compact('data'));
     }
 
-    public function store(request $request) {
-        $this->validate($request, [ 'nama_barang'=> 'required',
-            'stock'=> 'required',
-            'anggaran'=> 'required',
-            // 'scan'=> 'required',
-            ],
-            [ 'gambar.required'=> 'Gambar tidak boleh kosong',
-            'nama_barang.required'=> 'Nama Barang tidak boleh kosong',
-            'stock.required'=> 'Stock tidak boleh kosong',
-            'anggaran.required'=> 'Anggaran tidak boleh kosong',
-            ]);
-        // $data = Barang::create ($reque;
-        if($request->get('image')) {
-            $empty = "";
-            $img=$request->get('image');
-            $image_parts=explode(";base64,", $img);
-            foreach ($image_parts as $row=> $image) {
-                $image_base64=base64_decode($image);
-            }
-            // dd($request);
-            $upload=cloudinary()->upload($img)->getSecurePath();
-            if($request->scan == null || $request->serialnumber == null){
-                $id = $this->generateIdCode();
-                $random = $this->generateUniqueCode();
-                $serial = $this->generateSerialNumber($id);
-                // dd($serial);
-                $data = Barang::insert([
-                'nama_barang' => $request->nama_barang,
-                'stock' => $request->stock,
-                'anggaran' => $request->anggaran,
-                'scan' => $random,
-                'serialnumber' => $serial,
-                'kepemilikan' => $request->kepemilikan,
-                'image' => $upload,
-                'created_at'=> now(),
-                ]);
-            } else {
-                $data = Barang::insert([
-                    'nama_barang' => $request->nama_barang,
-                    'stock' => $request->stock,
-                    'anggaran' => $request->anggaran,
-                    'scan' => $request->scan,
-                    'serialnumber' => $request->serialnumber,
-                    'kepemilikan' => $request->kepemilikan,
-                    'image' => $upload,
-                    'created_at' => now(),
-                ]);
-            }
-        }
-        return redirect('barang')->with('toast_success', 'Data Berhasil Di Simpan!');
+    public function store(Request $request)
+{
+    $this->validate($request, [
+        'nama_barang' => 'required',
+        'stock' => 'required',
+        'anggaran' => 'required',
+        'image_webcam' => 'nullable', // Update validation rule to allow nullable
+        'image_file' => 'nullable|image|max:2048', // Update validation rule to allow nullable and accept image files
+    ], [
+        'nama_barang.required' => 'Nama Barang tidak boleh kosong',
+        'stock.required' => 'Stock tidak boleh kosong',
+        'anggaran.required' => 'Anggaran tidak boleh kosong',
+    ]);
+
+    // Handle image upload
+    if ($request->hasFile('image_file')) {
+        $uploadResult = Cloudinary::upload($request->file('image_file')->getRealPath());
+        $imageUrl = $uploadResult->getSecurePath();
+    } elseif ($request->has('image_webcam')) {
+        $imageBase64 = $request->input('image_webcam');
+        // Handle webcam image upload
+        $uploadResult = Cloudinary::upload($imageBase64);
+        $imageUrl = $uploadResult->getSecurePath();
+    } else {
+        $imageUrl = null;
     }
+
+    // Create new Barang instance and save to the database
+    $barang = new Barang();
+    $barang->nama_barang = $request->nama_barang;
+    $barang->stock = $request->stock;
+    $barang->anggaran = $request->anggaran;
+    $barang->image = $imageUrl;
+    $barang->save();
+
+    return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');
+}
+
+
 
     public function tampilanbarang($id) {
         $data=DB::table('barangs')->where('id', $id)->find($id);
         return view('Barang.edit', ['data'=>$data]);
     }
 
-    public function update(request $request, $id) {
+    public function update(request $request, $id)
+    {
         $data=DB::table('barangs')->where('id', $id)->get()[0];
         $data=DB::table('barangs') ->where('id', $id) ->update([ 'nama_barang'=> $request->nama_barang,
                 'stock'=> $request->stock,
