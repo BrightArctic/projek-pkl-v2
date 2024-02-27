@@ -96,10 +96,6 @@ class BarangController extends Controller
     }
 
 
-
-
-
-
     public function tampilanbarang($id) {
         $data=DB::table('barangs')->where('id', $id)->find($id);
         return view('Barang.edit', ['data'=>$data]);

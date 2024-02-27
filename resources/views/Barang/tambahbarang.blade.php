@@ -31,7 +31,7 @@
 
                                         <!-- Single file input field -->
                                         <div class="mb-3">
-                                            <label for="image_file">Atau Masukan Foto</label>
+                                            <label for="image_file" id="image_file_label">Atau Masukan Foto</label>
                                             <input type="file" class="form-control-file" name="image_file" id="fileInput" onchange="handleFileInput()">
                                         </div>
 
@@ -189,16 +189,27 @@
     }
 
     function takeSnapshot() {
-        Webcam.snap(function(data_uri) {
-            console.log("Image captured:", data_uri); // Debugging: Log the captured image data
-            $(".image-tag").val(data_uri); // Update the hidden input field with the base64-encoded image data
-            $("#results").html('<img src="' + data_uri + '" class="img-fluid mt-4"/>'); // Display the captured image
-            // Hide the "Take Snapshot" button
-            document.getElementById('snapshotBtn').style.display = 'none';
-            // Show the submit button
-            document.getElementById('toastr-2').style.display = 'block';
-        });
-    }
+    Webcam.snap(function(data_uri) {
+        console.log("Image captured:", data_uri); // Debugging: Log the captured image data
+
+        // Update the value of the hidden input field with the base64-encoded image data
+        $(".image-tag").val(data_uri);
+
+        // Display the captured image preview
+        $("#results").html('<img src="' + data_uri + '" class="img-fluid mt-4"/>');
+
+        // Hide the "Atau Masukan Foto" label
+        document.getElementById('image_file_label').style.display = 'none';
+
+        // Hide the file input field
+        document.getElementById('fileInput').style.display = 'none';
+
+        // Show the submit button
+        document.getElementById('toastr-2').style.display = 'block';
+    });
+}
+
+
 </script>
 @endsection
 </body>
