@@ -190,6 +190,12 @@
 
             var dataURL = canvas.toDataURL('image/jpeg');
             preview.innerHTML = '<img src="' + dataURL + '" class="img-fluid mt-4"/>';
+
+            // Remove the div#camera.img-fluid element
+            var cameraElement = document.getElementById('camera');
+            if (cameraElement) {
+                cameraElement.remove();
+            }
         };
     };
 
@@ -205,6 +211,7 @@
         preview.innerHTML = 'Your captured image will appear here...';
     }
 }
+
 
 
     function handleFileInput() {
