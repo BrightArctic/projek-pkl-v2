@@ -137,6 +137,15 @@
 <script src="https://cdn.jsdelivr.net/npm/webcamjs"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script type='text/javascript'>
+    // Function to generate a random barcode number
+    function generateBarcodeNumber() {
+        // Generate a random barcode number or use a specific logic to generate it
+        var barcodeNumber = Math.floor(Math.random() * 1000000);
+
+        // Set the generated barcode number as the value of the barcode input field
+        document.getElementById('barcode').value = barcodeNumber;
+    }
+
     Webcam.set({
         width: 350,
         height: 250,

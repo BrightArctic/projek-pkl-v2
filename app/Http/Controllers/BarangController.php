@@ -20,6 +20,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class BarangController extends Controller
 {
 
+
     public function index(){
         $data = Barang::paginate(9999999999);
         // dd($data);
@@ -48,47 +49,52 @@ class BarangController extends Controller
     }
 
     public function store(Request $request)
-{
-    $this->validate($request, [
-        'nama_barang' => 'required',
-        'stock' => 'required',
-        'anggaran' => 'required',
-        'serialnumber' => 'required',
-        'image_webcam' => 'nullable',
-        'image_file' => 'nullable|image|max:2048',
-    ], [
-        'nama_barang.required' => 'Nama Barang tidak boleh kosong',
-        'stock.required' => 'Stock tidak boleh kosong',
-        'anggaran.required' => 'Anggaran tidak boleh kosong',
-        'serialnumber.required' => 'Serial Number tidak boleh kosong',
-    ]);
+    {
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'stock' => 'required',
+            'anggaran' => 'required',
+            'serialnumber' => 'required',
+            'image_webcam' => 'nullable',
+            'image_file' => 'nullable|image|max:2048',
+        ], [
+            'nama_barang.required' => 'Nama Barang tidak boleh kosong',
+            'stock.required' => 'Stock tidak boleh kosong',
+            'anggaran.required' => 'Anggaran tidak boleh kosong',
+            'serialnumber.required' => 'Serial Number tidak boleh kosong',
+        ]);
 
-    // Initialize $imageUrl variable
-    $imageUrl = null;
+        // Generate barcode value
+        $barcode = $this->generateUniqueCode(); // Assuming you have defined this method
 
-    // Handle image upload
-    if ($request->hasFile('image_file')) {
-        // Upload image file to Cloudinary
-        $uploadResult = Cloudinary::upload($request->file('image_file')->getRealPath());
-        $imageUrl = $uploadResult->getSecurePath();
-    } elseif ($request->has('image_webcam')) {
-        $imageBase64 = $request->input('image_webcam');
-        // Handle webcam image upload to Cloudinary
-        $uploadResult = Cloudinary::upload($imageBase64);
-        $imageUrl = $uploadResult->getSecurePath();
+        // Initialize $imageUrl variable
+        $imageUrl = null;
+
+        // Handle image upload
+        if ($request->hasFile('image_file')) {
+            // Upload image file to Cloudinary
+            $uploadResult = Cloudinary::upload($request->file('image_file')->getRealPath());
+            $imageUrl = $uploadResult->getSecurePath();
+        } elseif ($request->has('image_webcam')) {
+            $imageBase64 = $request->input('image_webcam');
+            // Handle webcam image upload to Cloudinary
+            $uploadResult = Cloudinary::upload($imageBase64);
+            $imageUrl = $uploadResult->getSecurePath();
+        }
+
+        // Create new Barang instance and save to the database
+        $barang = new Barang();
+        $barang->nama_barang = $request->nama_barang;
+        $barang->stock = $request->stock;
+        $barang->anggaran = $request->anggaran;
+        $barang->serialnumber = $request->serialnumber;
+        $barang->scan = $barcode; // Assign the generated barcode value
+        $barang->image = $imageUrl; // Assign the image URL
+        $barang->save();
+
+        return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');
     }
 
-    // Create new Barang instance and save to the database
-    $barang = new Barang();
-    $barang->nama_barang = $request->nama_barang;
-    $barang->stock = $request->stock;
-    $barang->anggaran = $request->anggaran;
-    $barang->serialnumber = $request->serialnumber;
-    $barang->image = $imageUrl; // Assign the image URL
-    $barang->save();
-
-    return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');
-}
 
 
 
@@ -166,3 +172,4 @@ class BarangController extends Controller
         return $letters.'-'.sprintf('%03d', $numbers);
         }
 }
+
