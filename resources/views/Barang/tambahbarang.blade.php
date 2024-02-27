@@ -103,13 +103,14 @@
                                         <input type="text" name="serialnumber" class="form-control
                                         @error('serialnumber')
                                             is-invalid
-                                        @enderror" id="serialnumber" aria-describedby="emailHelp" value="{{ old('serialnumber') }}" onload="generateSerialNumber($id)">
+                                        @enderror" id="serialnumber" aria-describedby="emailHelp" value="{{ old('serialnumber') }}">
                                         @error('serialnumber')
                                         <div class="text-danger">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col mb-lg-2 mb-1">
