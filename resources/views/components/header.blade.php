@@ -353,6 +353,7 @@
     $(document).ready(function () {
         // Function to update notification content with the provided message
         function showNotification(message) {
+    console.log('Notification message:', message); // Add this line
             // Prepend a new notification item with the provided message
             $('#notificationContent').prepend(
                 `<a href="#"

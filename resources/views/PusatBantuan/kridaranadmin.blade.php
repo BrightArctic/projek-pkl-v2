@@ -13,35 +13,44 @@
                 <h1>Kridaran Admin</h1>
             </div>
             <div class="section-body">
-                @foreach($kridaranData as $kridaran)
-                    <div class="card" id="kridaran_{{ $kridaran->id }}">
-                        <div class="card-body d-flex align-items-center">
-                            {{-- profile pic --}}
-                            <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
-                            {{-- end of profile pic --}}
-                            <div class="media-body">
-                                <div class="media-title"><strong>Nama: {{ $kridaran->name }}</strong></div>
-                                <p class="mb-1">Message: {{ $kridaran->message }}</p>
-                                {{-- Add more fields as needed --}}
-                                <div class="time"><strong>{{ $kridaran->created_at->diffForHumans() }}</strong></div>
-                            </div>
-
-                            {{-- Button on the right side --}}
-                            <div class="ml-auto">
-                                <button class="btn btn-primary" onclick="addToTodoList({{ $kridaran->id }}, '{{ $kridaran->name }}', '{{ $kridaran->message }}')">Add to To-Do List</button>
-                            </div>
-                            <div class="ml-2"> <!-- Add margin-left class for horizontal spacing -->
-                                <button class="btn btn-danger" onclick="deleteKridaran({{ $kridaran->id }})"> <i class="fas fa-trash"></i> </button>
-                            </div>
+                @if($kridaranData->isEmpty())
+                    <!-- Display this card only when there are no Kridaran data -->
+                    <div class="card">
+                        <div class="card-body">
+                            No Kridaran data found.
                         </div>
                     </div>
-                @endforeach
+                @else
+                    <!-- Display Kridaran data cards -->
+                    @foreach($kridaranData as $kridaran)
+                        <div class="card" id="kridaran_{{ $kridaran->id }}">
+                            <div class="card-body d-flex align-items-center">
+                                {{-- profile pic --}}
+                                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
+                                {{-- end of profile pic --}}
+                                <div class="media-body">
+                                    <div class="media-title"><strong>Nama: {{ $kridaran->name }}</strong></div>
+                                    <p class="mb-1">Message: {{ $kridaran->message }}</p>
+                                    {{-- Add more fields as needed --}}
+                                    <div class="time"><strong>{{ $kridaran->created_at->diffForHumans() }}</strong></div>
+                                </div>
+
+                                {{-- Button on the right side --}}
+                                <div class="ml-auto">
+                                    <button class="btn btn-primary" onclick="addToTodoList({{ $kridaran->id }}, '{{ $kridaran->name }}', '{{ $kridaran->message }}')">Add to To-Do List</button>
+                                </div>
+                                <div class="ml-2"> <!-- Add margin-left class for horizontal spacing -->
+                                    <button class="btn btn-danger" onclick="deleteKridaran({{ $kridaran->id }})"> <i class="fas fa-trash"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </section>
     </div>
 
     <script>
-
 
         function deleteKridaran(kridaranId) {
             if (confirm("Are you sure you want to delete this Kridaran data?")) {

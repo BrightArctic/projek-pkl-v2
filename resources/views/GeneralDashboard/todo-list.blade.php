@@ -20,11 +20,14 @@
                                 <p class="mb-1"><strong>Subject description:</strong> {{ $item->subject }}</p>
                                 <p class="mb-1"><strong>Description:</strong> {{ $item->message }}</p>
                                 {{-- Display the image --}}
-                                @if($item->image_path)
-                                <li class="media">
-                                    <img src="{{ url($item->image_path) }}" alt="Image not loaded correctly" width="300" height="200" class="img-fluid rounded">
-                                </li>
+                                @if ($item->bugReport)
+                                @if ($item->bugReport->image_path)
+                                    <li class="media">
+                                        <img src="{{ $item->bugReport->image_path }}" alt="Bug Report Image" width="300" height="200" class="img-fluid rounded">
+                                    </li>
+                                @endif
                             @endif
+
 
                                 {{-- Add more fields as needed --}}
                                 <!-- Assuming you have a 'created_at' field -->

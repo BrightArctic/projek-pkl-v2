@@ -13,37 +13,48 @@
                 <h1>Bug Reports</h1>
             </div>
             <div class="section-body">
-                @foreach($bugReports as $bugReport)
-                    <div class="card" id="bugReport_{{ $bugReport->id }}">
-                        <div class="card-body d-flex align-items-center">
-                            {{-- profile pic --}}
-                            <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
-                            {{-- end of profile pic --}}
-                            <div class="media-body">
-                                <div class="media-title"><strong>Nama: {{ $bugReport->name }}</strong></div>
-                                <p class="mb-1">Subject: {{ $bugReport->subject }}</p>
-                                <p class="mb-1">Message: {{ $bugReport->message }}</p>
-                                {{-- Display the image below the message --}}
-                                @if($bugReport->image_path)
-                                    <li class="media">
-                                        {{-- Use the hashed image path when displaying the image --}}
-                                        <img src="{{ url($bugReport->image_path) }}" alt="image didnt load correctly" width="300" height="200" class="img-fluid rounded">
-                                    </li>
-                                @endif
-                                 <div class="time"><strong>dikirim pada tanggal: {{ $bugReport->created_at }}</strong></div>
-                                <div class="time"><strong>{{ $bugReport->created_at->diffForHumans() }}</strong></div>
-                            </div>
-
-                            {{-- Button on the right side --}}
-                            <div class="ml-auto">
-                                <button class="btn btn-primary" onclick="addToTodoList({{ $bugReport->id }}, '{{ $bugReport->name }}', '{{ $bugReport->subject }}', '{{ $bugReport->message }}', '{{ $bugReport->image_path }}')">Add to To-Do List</button>
-                            </div>
-                            <div class="ml-2">
-                                <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})"><i class="fas fa-trash"></i></button>
-                            </div>
+                @if($bugReports->isEmpty())
+                    <!-- Display this card only when there are no bug reports -->
+                    <div class="card">
+                        <div class="card-body">
+                            No bug has been reported yet.
                         </div>
                     </div>
-                @endforeach
+                @else
+                    <!-- Display bug report cards -->
+                    @foreach($bugReports as $bugReport)
+                        <div class="card" id="bugReport_{{ $bugReport->id }}">
+                            <div class="card-body d-flex align-items-center">
+                                {{-- profile pic --}}
+                                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-3 mb-2" style="width: 40px; height: 40px;">
+                                {{-- end of profile pic --}}
+                                <div class="media-body">
+                                    <div class="media-title"><strong>Nama: {{ $bugReport->name }}</strong></div>
+                                    <p class="mb-1">Subject: {{ $bugReport->subject }}</p>
+                                    <p class="mb-1">Message: {{ $bugReport->message }}</p>
+                                    {{-- Display the image below the message --}}
+                                    @if($bugReport->image_path)
+                                        <li class="media">
+                                            {{-- Use the hashed image path when displaying the image --}}
+                                            <img src="{{ url($bugReport->image_path) }}" alt="image didn't load correctly" width="141" height="125" class="img-fluid rounded">
+                                        </li>
+                                    @endif
+                                    <br>
+                                    <div class="time"><strong>dikirim pada tanggal: {{ $bugReport->created_at }}</strong></div>
+                                    <div class="time"><strong>{{ $bugReport->created_at->diffForHumans() }}</strong></div>
+                                </div>
+
+                                {{-- Button on the right side --}}
+                                <div class="ml-auto">
+                                    <button class="btn btn-primary" onclick="addToTodoList({{ $bugReport->id }}, '{{ $bugReport->name }}', '{{ $bugReport->subject }}', '{{ $bugReport->message }}', '{{ $bugReport->image_path }}')">Add to To-Do List</button>
+                                </div>
+                                <div class="ml-2">
+                                    <button class="btn btn-danger" onclick="deleteBugReport({{ $bugReport->id }})"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </section>
     </div>

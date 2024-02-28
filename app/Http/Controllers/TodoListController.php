@@ -16,17 +16,17 @@ class TodoListController extends Controller
     }
 
     public function addToTodoList(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'bugReportId' => 'integer',
-            'kridaranId' => 'integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for image
-            // Add validation rules for other fields if needed
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'bugReportId' => 'integer',
+        'kridaranId' => 'integer',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for image
+        // Add validation rules for other fields if needed
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
-        }
+    if ($validator->fails()) {
+        return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+    }
 
     try {
         $todoItemData = [];
@@ -38,6 +38,7 @@ class TodoListController extends Controller
             $imagePath = cloudinary()->upload($uploadedFile->getRealPath())->getSecurePath();
             $todoItemData['image_path'] = $imagePath;
         }
+
         if ($request->has('bugReportId')) {
             // Handle bug report data
             $bugReport = BugReport::findOrFail($request->input('bugReportId'));
@@ -54,14 +55,17 @@ class TodoListController extends Controller
             $message = $request->input('message');
 
             // Set a default subject for Kridaran
-            $subject = 'null (dari kridaran)';
+            $subject = 'Kridansa';
 
             // Create todo list item for kridaran data
-            TodoListItem::create([
+            $todo = TodoListItem::create([
                 'name' => $name,
                 'subject' => $subject,
                 'message' => $message,
             ]);
+
+            // Trigger AJAX success event to update notification
+            event(new \Illuminate\Database\Events\QueryExecuted); // Simulate AJAX success event
 
             // Set session variable to indicate new item from Kridaran
             session()->flash('kridaran_notification', true);
@@ -74,6 +78,7 @@ class TodoListController extends Controller
         return response()->json(['success' => false, 'message' => 'Failed to add item to the to-do list.']);
     }
 }
+
 
 
 
