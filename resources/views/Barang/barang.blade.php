@@ -44,6 +44,7 @@
                                         <th scope="col" class="text-center">Kepemilikan</th>
                                         <th scope="col" class="text-center">Serial Number</th>
                                         <th scope="col" class="text-center">Lokasi</th> <!-- New column -->
+                                        <th scope="col" class="text-center">Gedung</th> <!-- New column -->
                                         <th scope="col" class="text-center">Barcode</th>
                                         <th scope="col" class="text-center">Action</th>
                                     </tr>
@@ -69,6 +70,7 @@
                                         <td class="text-center">{{$row->kepemilikan}}</td>
                                         <td class="text-center">{{$row->serialnumber}}</td>
                                         <td class="text-center">{{$row->lokasi}}</td> <!-- New column -->
+                                        <td class="text-center">{{$row->gedung}}</td> <!-- New column -->
                                         <td class="text-center" style="font-family: 'Libre Barcode 39';font-size: 22px;">{{$row->scan}}</td>
                                         <td class="text-center">
                                             <div class="container d-flex" style="margin: 0;padding: 0;">

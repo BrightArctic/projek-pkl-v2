@@ -56,6 +56,7 @@ class BarangController extends Controller
             'anggaran' => 'required',
             'serialnumber' => 'required',
             'lokasi' => 'required', // Add validation for lokasi
+            'gedung' => 'required', // Add validation for lokasi
             'image_webcam' => 'nullable',
             'image_file' => 'nullable|image|max:2048',
         ], [
@@ -93,6 +94,7 @@ class BarangController extends Controller
         $barang->scan = $barcode; // Assign the generated barcode value
         $barang->image = $imageUrl; // Assign the image URL
         $barang->lokasi = $request->lokasi;
+        $barang->gedung = $request->gedung;
         $barang->save();
 
         return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');

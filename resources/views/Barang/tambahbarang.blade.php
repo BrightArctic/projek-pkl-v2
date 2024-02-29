@@ -120,6 +120,46 @@
                                     </div>
 
 
+                                    <div class="mb-3">
+                                        <label for="gedung" class="form-label">Gedung</label>
+                                        <select class="form-select" name="gedung" id="gedung">
+                                            <option value="">Pilih Gedung</option>
+                                            <option value="teknik Mesin">Teknik Mesin</option>
+                                            <option value="Teknik Sipil">Teknik Sipil</option>
+                                            <option value="workshop teknik elektronika">Workshop Teknik Elektronika</option>
+                                            <option value="teknik elektro">Teknik Elektro</option>
+                                            <option value="gedung serba guna">Gedung Serba Guna</option>
+                                            <option value="akuntansi">Akuntansi</option>
+                                            <option value="workshop teknik telekomunikasi">Workshop Teknik Telekomunikasi</option>
+                                            <option value="administrasi bisnis">Administrasi Bisnis</option>
+                                            <option value="workshop teknik listrik">Workshop Teknik Listrik</option>
+                                            <option value="administrasi jurusan">Administrasi Jurusan</option>
+                                            <option value="workshop teknik konversi energi">Workshop Teknik Konversi Energi</option>
+                                            <option value="perpustakaan">Perpustakaan</option>
+                                            <option value="workshop teknik mesin">Workshop Teknik Mesin</option>
+                                            <option value="workshop las">Workshop Las</option>
+                                            <option value="workshop teknik sipil">Workshop Teknik Sipil</option>
+                                            <option value="PUT">PUT</option>
+                                            <option value="laboratorium teknik sipil">Laboratorium Teknik Sipil</option>
+                                            <option value="administrasi pusat">Administrasi Pusat</option>
+                                            <option value="loker1">Loker 1</option>
+                                            <option value="loker2">Loker 2</option>
+                                            <option value="bank mini">Bank Mini</option>
+                                            <option value="pusat kegiatan mahasiswa">Pusat Kegiatan Mahasiswa</option>
+                                            <option value="generator set">Generator Set</option>
+                                            <option value="pompa air">Pompa Air</option>
+                                            <option value="kantin">Kantin</option>
+                                            <option value="workshop alat berat">Workshop Alat Berat</option>
+                                            <option value="teknik grafika dan penerbitan">Teknik Grafika dan Penerbitan</option>
+                                            <option value="workshop teknik listrik">Workshop Teknik Listrik</option>
+                                            <option value="kearsipan">Kearsipan</option>
+                                        </select>
+                                        @error('gedung')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
                                     <div class="row">
                                         <div class="col mb-lg-2 mb-1">
                                             <label for="exampleFormControlSelect1" class="form-label">Kepemilikan</label>
