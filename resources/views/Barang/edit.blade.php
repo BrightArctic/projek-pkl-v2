@@ -42,7 +42,7 @@
 
                                 <button class="btn btn-warning mt-2 tombol-foto" type="button">Ubah Foto</button>
                                 <button class="btn btn-secondary mt-2 tombol-foto-batal" type="button" style="display: none;">Batal</button>
-                                
+
                                 @error('image')
                                     <div class="alert alert-danger" role="alert">
                                         Data Harus diisi!
@@ -56,14 +56,14 @@
                                         aria-describedby="emailHelp">
                                     <div id="emailHelp" class="form-text"></div>
                                 </div>
-        
+
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Stock</label>
                                     <input type="text" name="stock" value="{{$data->stock}}" class="form-control" id=""
                                         aria-describedby="emailHelp">
                                     <div id="emailHelp" class="form-text"></div>
                                 </div>
-        
+
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Anggaran</label>
                                     <input type="text" name="anggaran" value="{{$data->anggaran}}" class="form-control" id=""
@@ -85,6 +85,51 @@
                                     <div id="emailHelp" class="form-text"></div>
                                 </div>
 
+<div class="mb-3">
+    <label for="lokasi" class="form-label">Lokasi</label>
+    <input type="text" name="lokasi" value="{{ $data->lokasi }}" class="form-control" id="lokasi" aria-describedby="lokasiHelp">
+    <!-- Add any validation messages for 'lokasi' if needed -->
+</div>
+
+<div class="mb-3">
+    <label for="gedung" class="form-label">Gedung</label>
+    <select class="form-select" name="gedung" id="gedung">
+        <option value="">Pilih Gedung</option>
+        <option value="workshop teknik elektronika" {{ $data->gedung == 'workshop teknik elektronika' ? 'selected' : '' }}>Workshop Teknik Elektronika</option>
+        <option value="teknik elektro" {{ $data->gedung == 'teknik elektro' ? 'selected' : '' }}>Teknik Elektro</option>
+        <option value="gedung serba guna" {{ $data->gedung == 'gedung serba guna' ? 'selected' : '' }}>Gedung Serba Guna</option>
+        <option value="akuntansi" {{ $data->gedung == 'akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+        <option value="workshop teknik telekomunikasi" {{ $data->gedung == 'workshop teknik telekomunikasi' ? 'selected' : '' }}>Workshop Teknik Telekomunikasi</option>
+        <option value="administrasi bisnis" {{ $data->gedung == 'administrasi bisnis' ? 'selected' : '' }}>Administrasi Bisnis</option>
+        <option value="workshop teknik listrik" {{ $data->gedung == 'workshop teknik listrik' ? 'selected' : '' }}>Workshop Teknik Listrik</option>
+        <option value="administrasi jurusan" {{ $data->gedung == 'administrasi jurusan' ? 'selected' : '' }}>Administrasi Jurusan</option>
+        <option value="workshop teknik konversi energi" {{ $data->gedung == 'workshop teknik konversi energi' ? 'selected' : '' }}>Workshop Teknik Konversi Energi</option>
+        <option value="perpustakaan" {{ $data->gedung == 'perpustakaan' ? 'selected' : '' }}>Perpustakaan</option>
+        <option value="workshop teknik mesin" {{ $data->gedung == 'workshop teknik mesin' ? 'selected' : '' }}>Workshop Teknik Mesin</option>
+        <option value="workshop las" {{ $data->gedung == 'workshop las' ? 'selected' : '' }}>Workshop Las</option>
+        <option value="workshop teknik sipil" {{ $data->gedung == 'workshop teknik sipil' ? 'selected' : '' }}>Workshop Teknik Sipil</option>
+        <option value="PUT" {{ $data->gedung == 'PUT' ? 'selected' : '' }}>PUT</option>
+        <option value="laboratorium teknik sipil" {{ $data->gedung == 'laboratorium teknik sipil' ? 'selected' : '' }}>Laboratorium Teknik Sipil</option>
+        <option value="administrasi pusat" {{ $data->gedung == 'administrasi pusat' ? 'selected' : '' }}>Administrasi Pusat</option>
+        <option value="loker1" {{ $data->gedung == 'loker1' ? 'selected' : '' }}>Loker 1</option>
+        <option value="loker2" {{ $data->gedung == 'loker2' ? 'selected' : '' }}>Loker 2</option>
+        <option value="bank mini" {{ $data->gedung == 'bank mini' ? 'selected' : '' }}>Bank Mini</option>
+        <option value="pusat kegiatan mahasiswa" {{ $data->gedung == 'pusat kegiatan mahasiswa' ? 'selected' : '' }}>Pusat Kegiatan Mahasiswa</option>
+        <option value="generator set" {{ $data->gedung == 'generator set' ? 'selected' : '' }}>Generator Set</option>
+        <option value="pompa air" {{ $data->gedung == 'pompa air' ? 'selected' : '' }}>Pompa Air</option>
+        <option value="kantin" {{ $data->gedung == 'kantin' ? 'selected' : '' }}>Kantin</option>
+        <option value="workshop alat berat" {{ $data->gedung == 'workshop alat berat' ? 'selected' : '' }}>Workshop Alat Berat</option>
+        <option value="teknik grafika dan penerbitan" {{ $data->gedung == 'teknik grafika dan penerbitan' ? 'selected' : '' }}>Teknik Grafika dan Penerbitan</option>
+        <option value="workshop teknik listrik" {{ $data->gedung == 'workshop teknik listrik' ? 'selected' : '' }}>Workshop Teknik Listrik</option>
+        <option value="kearsipan" {{ $data->gedung == 'kearsipan' ? 'selected' : '' }}>Kearsipan</option>
+    </select>
+    @error('gedung')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
+
                                 <div class="row">
                                     <div class="col mb-lg-2 mb-1">
                                         <label for="exampleFormControlSelect1" class="form-label">Kepemilikan</label>
@@ -95,7 +140,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
@@ -150,6 +195,6 @@
         imageTag.value = "";
     })
 
-    
+
 </script>
 @endsection

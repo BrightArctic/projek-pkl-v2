@@ -106,31 +106,35 @@ class BarangController extends Controller
         return view('Barang.edit', ['data'=>$data]);
     }
 
-    public function update(request $request, $id)
-    {
-        $data=DB::table('barangs')->where('id', $id)->get()[0];
-        $data=DB::table('barangs') ->where('id', $id) ->update([ 'nama_barang'=> $request->nama_barang,
-                'stock'=> $request->stock,
-                'anggaran'=> $request->anggaran,
-                'scan'=> $request->scan,
-                'serialnumber'=> $request->serialnumber,
-                'kepemilikan' => $request->kepemilikan,
-                'updated_at'=> now(),
-                ]);
-        if($request->get('image')) {
-            $img=$request->get('image');
-            $image_parts=explode(";base64,", $img);
-            foreach ($image_parts as $key=> $image) {
-                $image_base64=base64_decode($image);
-            }
-            $upload=cloudinary()->upload($img)->getSecurePath();
-            // dd($upload);
-            $data=DB::table('barangs') ->where('id', $id) ->update([ 'image'=> $upload,
-                ]);
-        }
-        return redirect('barang')->with('toast_success', 'Data Berhasil Di Edit!');
-    }
+    public function update(Request $request, $id)
+{
+    // Validate the request data
+    $request->validate([
+        'nama_barang' => 'required',
+        'stock' => 'required',
+        'anggaran' => 'required',
+        'serialnumber' => 'required',
+        'lokasi' => 'required', // Add validation for 'lokasi'
+        'gedung' => 'required', // Add validation for 'gedung'
+    ]);
 
+    // Find the Barang record by ID
+    $barang = Barang::findOrFail($id);
+
+    // Update the Barang record with the request data
+    $barang->nama_barang = $request->input('nama_barang');
+    $barang->stock = $request->input('stock');
+    $barang->anggaran = $request->input('anggaran');
+    $barang->serialnumber = $request->input('serialnumber');
+    $barang->lokasi = $request->input('lokasi');
+    $barang->gedung = $request->input('gedung');
+
+    // Save the updated record
+    $barang->save();
+
+    // Redirect back to the index page with a success message
+    return redirect()->route('barang')->with('toast_success', 'Data Barang berhasil diperbarui!');
+}
     public function destroy($id){
     $data = Barang::find($id);
     $data->delete();
