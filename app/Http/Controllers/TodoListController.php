@@ -64,9 +64,6 @@ class TodoListController extends Controller
                 'message' => $message,
             ]);
 
-            // Trigger AJAX success event to update notification
-            event(new \Illuminate\Database\Events\QueryExecuted); // Simulate AJAX success event
-
             // Set session variable to indicate new item from Kridaran
             session()->flash('kridaran_notification', true);
 

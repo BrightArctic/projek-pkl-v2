@@ -4,6 +4,15 @@
 
 @push('style')
     <!-- CSS Libraries -->
+    <!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<style>
+    /* Custom CSS to change text color of notifications */
+    .toast-style {
+        color: white !important; /* Set text color to white */
+    }
+</style>
 @endpush
 
 @section('main')
@@ -72,36 +81,48 @@
             }
         }
 
-        function addToTodoList(kridaranId, name, message) {
-    // Make an AJAX request to send kridaran information to the controller
-    $.ajax({
-        type: 'POST',
-        url: '{{ route("todo-list.add") }}',
-        data: {
-            kridaranId: kridaranId,
-            name: name, // Pass the 'name' parameter
-            message: message, // Pass the 'message' parameter
-            _token: '{{ csrf_token() }}',
-        },
-        success: function (response) {
-            console.log(response);
-            // Check if the request was successful and handle accordingly
-            if (response.success) {
-                // Optionally, you can perform additional actions upon success
-                alert('Kridaran added to the to-do list.');
-            } else {
-                alert(response.message); // Display the error message
-            }
-        },
-        error: function (xhr, status, error) {
-            // Handle error response if needed
-            console.error(xhr.responseText);
-        }
+        $(document).ready(function() {
+        // Initialize toastr with custom options
+        toastr.options = {
+            "positionClass": "toast-top-right", // Display notifications in top-right corner
+        };
     });
-}
 
-
-
+    function addToTodoList(kridaranId, name, message) {
+        // Make an AJAX request to send kridaran information to the controller
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("todo-list.add") }}',
+            data: {
+                kridaranId: kridaranId,
+                name: name, // Pass the 'name' parameter
+                message: message, // Pass the 'message' parameter
+                _token: '{{ csrf_token() }}',
+            },
+            success: function (response) {
+                console.log(response);
+                // Check if the response is defined and has the expected properties
+                if (response && response.success) {
+                    // Show a success notification using Toastr
+                    toastr.success('Kridaran added to the to-do list.', '', {"positionClass": "toast-top-right"});
+                } else {
+                    // Show an error notification using Toastr if response is defined
+                    if (response && response.message) {
+                        toastr.error(response.message, '', {"positionClass": "toast-top-right"});
+                    } else {
+                        // Show a generic error message if response is not defined or doesn't have a message
+                        toastr.error('Failed to add Kridaran to the to-do list. Please try again.', '', {"positionClass": "toast-top-right"});
+                    }
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle error response if needed
+                console.error(xhr.responseText);
+                // Show an error notification using Toastr
+                toastr.error('Failed to add Kridaran to the to-do list. Please try again.', '', {"positionClass": "toast-top-right"});
+            }
+        });
+    }
 </script>
 
 
@@ -109,5 +130,8 @@
 
 @push('scripts')
     <!-- JS Libraries -->
+    <!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <!-- Page Specific JS File -->
 @endpush

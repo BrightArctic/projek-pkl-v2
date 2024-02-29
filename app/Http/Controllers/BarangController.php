@@ -55,6 +55,7 @@ class BarangController extends Controller
             'stock' => 'required',
             'anggaran' => 'required',
             'serialnumber' => 'required',
+            'lokasi' => 'required', // Add validation for lokasi
             'image_webcam' => 'nullable',
             'image_file' => 'nullable|image|max:2048',
         ], [
@@ -62,6 +63,7 @@ class BarangController extends Controller
             'stock.required' => 'Stock tidak boleh kosong',
             'anggaran.required' => 'Anggaran tidak boleh kosong',
             'serialnumber.required' => 'Serial Number tidak boleh kosong',
+            'lokasi.required' => 'Lokasi tidak boleh kosong', // Add custom error message for lokasi
         ]);
 
         // Generate barcode value
@@ -90,6 +92,7 @@ class BarangController extends Controller
         $barang->serialnumber = $request->serialnumber;
         $barang->scan = $barcode; // Assign the generated barcode value
         $barang->image = $imageUrl; // Assign the image URL
+        $barang->lokasi = $request->lokasi;
         $barang->save();
 
         return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');

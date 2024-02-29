@@ -19,6 +19,7 @@ class Barang extends Model
         'scan',
         'serialnumber',
         'kepemilikan',
+        'lokasi', // Add 'lokasi' to the $fillable array
     ];
 
     public Function peminjam(){

@@ -43,6 +43,7 @@
                                         <th scope="col" class="text-center">Tahun Anggaran</th>
                                         <th scope="col" class="text-center">Kepemilikan</th>
                                         <th scope="col" class="text-center">Serial Number</th>
+                                        <th scope="col" class="text-center">Lokasi</th> <!-- New column -->
                                         <th scope="col" class="text-center">Barcode</th>
                                         <th scope="col" class="text-center">Action</th>
                                     </tr>
@@ -52,7 +53,7 @@
                                     $no = 1;
                                     @endphp
                                     <tr>
-                                        @foreach ($data as $no=> $row)
+                                        @foreach ($data as $no => $row)
                                         <input type="hidden" value="{{ $row->image }}" class="key{{ $no }}">
                                         <input type="hidden" value="{{ $row->nama_barang }}" class="key{{ $no }}">
                                         <input type="hidden" value="{{ $row->stock }}" class="key{{ $no }}">
@@ -62,25 +63,23 @@
                                         <input type="hidden" value="{{ $row->serialnumber }}" class="key{{ $no }}">
                                         <td class="text-center"> {{$no + 1}} </td>
                                         <td class="text-center"><img src="{{ $row->image }}" style="width: 90px;"></td>
-                                        <td class="text-center">{{$row ->nama_barang}}</td>
-                                        <td class="text-center">{{$row ->stock}}</td>
-                                        <td class="text-center">{{$row ->anggaran}}</td>
-                                        <td class="text-center">{{$row ->kepemilikan}}</td>
-                                        <td class="text-center">{{$row ->serialnumber}}</td>
-                                        <td class="text-center" style="font-family: 'Libre Barcode 39';font-size: 22px;">{{$row ->scan}}</td>
+                                        <td class="text-center">{{$row->nama_barang}}</td>
+                                        <td class="text-center">{{$row->stock}}</td>
+                                        <td class="text-center">{{$row->anggaran}}</td>
+                                        <td class="text-center">{{$row->kepemilikan}}</td>
+                                        <td class="text-center">{{$row->serialnumber}}</td>
+                                        <td class="text-center">{{$row->lokasi}}</td> <!-- New column -->
+                                        <td class="text-center" style="font-family: 'Libre Barcode 39';font-size: 22px;">{{$row->scan}}</td>
                                         <td class="text-center">
                                             <div class="container d-flex" style="margin: 0;padding: 0;">
-                                                <form action="{{route('deletebarang',$row->id)}}"
-                                                    id="delete{{$row->id}}" method="POST" class="d-block">
+                                                <form action="{{route('deletebarang',$row->id)}}" id="delete{{$row->id}}" method="POST" class="d-block">
                                                     @csrf
                                                     @method('delete')
-                                                    <a href="#" data-id={{$row->id}}
-                                                        class="btn btn-icon btn-danger m-1 ml-3 mt-3 mb-3 btn-lg delete swal-confrim">
+                                                    <a href="#" data-id={{$row->id}} class="btn btn-icon btn-danger m-1 ml-3 mt-3 mb-3 btn-lg delete swal-confrim">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </form>
-                                                <a href="{{route('tampilanbarang',$row->id)}}"
-                                                    class="btn btn-primary m-1 mr-3 mb-5 mt-3 btn-lg">
+                                                <a href="{{route('tampilanbarang',$row->id)}}" class="btn btn-primary m-1 mr-3 mb-5 mt-3 btn-lg">
                                                     <i class="fas fa-pencil-alt "></i>
                                                 </a>
                                             </div>

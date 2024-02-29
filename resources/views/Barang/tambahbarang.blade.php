@@ -111,6 +111,14 @@
                                         @enderror
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label for="lokasi" class="form-label">Lokasi</label>
+                                        <input type="text" name="lokasi" class="form-control" id="lokasi" value="{{ old('lokasi') }}">
+                                        @error('lokasi')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
 
                                     <div class="row">
                                         <div class="col mb-lg-2 mb-1">

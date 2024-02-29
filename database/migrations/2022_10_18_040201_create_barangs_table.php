@@ -22,9 +22,12 @@ return new class extends Migration
             $table->string('scan')->default('default_value');
             $table->enum('kepemilikan', ['Milik Negara', 'Milik PNJ']);
             $table->string('serialnumber')->nullable(); // Making serialnumber nullable.. at least for now
+            $table->string('lokasi'); // Add the 'lokasi' column
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
