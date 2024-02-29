@@ -41,6 +41,9 @@
                         <h2 class="text-dark font-weight-normal">Sarpras</h2>
                         <p class="text-muted">Before you get started, you must login or register if you don't already
                             have an account.</p>
+                            <div id="lockoutMessage" class="alert alert-danger d-none">
+                                Too many login attempts. Please try again after <span id="lockoutDuration"></span> seconds.
+                            </div>
                             <hr>
                             @if(session('error'))
                             <div class="alert alert-danger">
@@ -155,6 +158,24 @@
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script>
+       $(document).ready(function () {
+    // Check if the lockout message should be displayed
+    @if(session()->has('lockout_until') && now()->lt(session()->get('lockout_until')))
+        var lockoutDuration = {{ now()->diffInSeconds(session()->get('lockout_until')) }};
+        $('#lockoutMessage').removeClass('d-none');
+        $('#lockoutDuration').text(lockoutDuration);
+        $('#loginForm').find('input, button').prop('disabled', true);
+        $('#loginForm').find('button[type="submit"]').addClass('disabled');
+        setTimeout(function () {
+            $('#lockoutMessage').addClass('d-none');
+            $('#loginForm').find('input, button').prop('disabled', false);
+            $('#loginForm').find('button[type="submit"]').removeClass('disabled');
+        }, lockoutDuration * 1000); // Convert seconds to milliseconds
+    @endif
+});
+    </script>
 </body>
 
 </html>

@@ -11,35 +11,48 @@ use Illuminate\Validation\Rules\Password;
 
 class LoginController extends Controller
 {
-
-    public function login(){
+    public function login()
+    {
         return view('/dashboard-general-dashboard');
     }
 
     public function loginproses(Request $request)
     {
-        $data = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            // 'expired_at' => 
-        ];
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::Attempt($data)) {
-            $email = $request->input('email');
-            $user = User::where('email', $email)->first();
-            session()->put('name',$user->name);
-            return redirect('/dashboard-general-dashboard');    
-        }else{
-            session()->flash('error', 'Email atau Password Salah');
+        // Check if the user is currently locked out
+        if (Session::has('lockout_until') && now()->lt(Session::get('lockout_until'))) {
+            $lockoutDuration = Session::get('lockout_until')->diffInSeconds(now());
+            return redirect()->back()->withErrors(['error' => 'Too many login attempts. Please try again after ' . $lockoutDuration . ' seconds.']);
+        }
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            Session::put('name', $user->name);
+            return redirect('/dashboard-general-dashboard');
+        } else {
+            // Increment failed login attempts
+            $failedAttempts = Session::get('failed_login_attempts', 0);
+            $failedAttempts++;
+
+            // Lockout the user for 1 minute after 3 failed attempts
+            if ($failedAttempts >= 3) {
+                Session::put('lockout_until', now()->addMinutes(1));
+                Session::forget('failed_login_attempts');
+                return redirect()->back()->withErrors(['error' => 'Too many login attempts. Please try again later.']);
+            }
+
+            Session::put('failed_login_attempts', $failedAttempts);
+            Session::flash('error', 'Email atau Password Salah');
             return redirect()->back();
         }
     }
 
-
-    public function register(){
+    public function register()
+    {
         return view('pages.auth-register');
     }
-    
+
     public function registeruser(Request $request){
         user::create([
             'name' => $request->name,
@@ -64,7 +77,7 @@ class LoginController extends Controller
             'captcha' => ['required','captcha'],
         ]);
     }
-   
+
     public function reloadCaptcha()
     {
         return response()->json(['captcha'=> captcha_img()]);
