@@ -94,8 +94,7 @@ $textHeight = 479; // Height of the edited image
 $textX = $imageWidth - $textWidth - 40; // Adjust the value (20) as needed for spacing
 $textY = $imageHeight - $textHeight - 70; // Adjust the value (20) as needed for spacing
 
-//Load OpenType font
-// Draw the black text with a larger font size and black color for the outline
+
 $image->text('UPATIK', $textX, $textY + $textHeight, function($font) {
     $font->file(public_path('MoonkidsPersonalUseExtbd-gxPZ3.ttf')); // Specify the font path using public_path() helper
     $font->size(95); // Slightly larger font size for the outline text
