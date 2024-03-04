@@ -21,9 +21,9 @@ return new class extends Migration
             $table->integer('anggaran');
             $table->string('scan')->default('default_value');
             $table->enum('kepemilikan', ['Milik Negara', 'Milik PNJ']);
-            $table->string('serialnumber'); // Making serialnumber nullable.. at least for now
-            $table->string('lokasi'); // Add the 'lokasi' column
-            $table->string('gedung'); // Add the 'lokasi' column
+            $table->string('serialnumber');
+            $table->string('lokasi');
+            $table->string('gedung');
             $table->timestamps();
         });
     }

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Constraint\IsEmpty;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Intervention\Image\Facades\Image;
+
 
 
 
@@ -49,40 +51,77 @@ class BarangController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    try {
+        // Validate the request
         $this->validate($request, [
             'nama_barang' => 'required',
             'stock' => 'required',
             'anggaran' => 'required',
             'serialnumber' => 'required',
-            'lokasi' => 'required', // Add validation for lokasi
-            'gedung' => 'required', // Add validation for lokasi
-            'image_webcam' => 'nullable',
+            'lokasi' => 'required',
+            'gedung' => 'required',
             'image_file' => 'nullable|image|max:2048',
-        ], [
-            'nama_barang.required' => 'Nama Barang tidak boleh kosong',
-            'stock.required' => 'Stock tidak boleh kosong',
-            'anggaran.required' => 'Anggaran tidak boleh kosong',
-            'serialnumber.required' => 'Serial Number tidak boleh kosong',
-            'lokasi.required' => 'Lokasi tidak boleh kosong', // Add custom error message for lokasi
         ]);
 
         // Generate barcode value
-        $barcode = $this->generateUniqueCode(); // Assuming you have defined this method
+        $barcode = $this->generateUniqueCode();
 
-        // Initialize $imageUrl variable
-        $imageUrl = null;
-
-        // Handle image upload
+        // Handle image upload and add watermark
         if ($request->hasFile('image_file')) {
-            // Upload image file to Cloudinary
-            $uploadResult = Cloudinary::upload($request->file('image_file')->getRealPath());
-            $imageUrl = $uploadResult->getSecurePath();
-        } elseif ($request->has('image_webcam')) {
-            $imageBase64 = $request->input('image_webcam');
-            // Handle webcam image upload to Cloudinary
-            $uploadResult = Cloudinary::upload($imageBase64);
-            $imageUrl = $uploadResult->getSecurePath();
+            // Load the existing watermark image
+            $watermarkPath = public_path('poli.png');
+            $watermark = Image::make($watermarkPath);
+
+            // Load the uploaded image
+$image = Image::make($request->file('image_file')->getRealPath());
+
+// Resize the image to 1200x1200 keeping the aspect ratio
+$image->resize(1200, 1200, function ($constraint) {
+    $constraint->aspectRatio();
+});
+
+// Get the dimensions of the resized image
+$imageWidth = $image->width();
+$imageHeight = $image->height();
+
+// Add the existing watermark image to the resized image
+$image->insert($watermark, 'bottom-right', 10, 10);
+
+// Calculate the center coordinates for the text
+$textWidth = 479; // Width of the edited image
+$textHeight = 479; // Height of the edited image
+$textX = $imageWidth - $textWidth - 40; // Adjust the value (20) as needed for spacing
+$textY = $imageHeight - $textHeight - 70; // Adjust the value (20) as needed for spacing
+
+//Load OpenType font
+// Draw the black text with a larger font size and black color for the outline
+$image->text('UPATIK', $textX, $textY + $textHeight, function($font) {
+    $font->file(public_path('MoonkidsPersonalUseExtbd-gxPZ3.ttf')); // Specify the font path using public_path() helper
+    $font->size(95); // Slightly larger font size for the outline text
+    $font->color('#000000'); // Black color for the outline text
+    $font->align('center');
+    $font->valign('bottom');
+});
+
+// Draw the text with a smaller font size and white color for the inside
+$image->text('UPATIK', $textX, $textY + $textHeight, function($font) {
+    $font->file(public_path('MoonkidsPersonalUseExtbd-gxPZ3.ttf')); // Specify the font path using public_path() helper
+    $font->size(90); // Smaller font size for the inside text
+    $font->color('#ffffff'); // White color for the inside text
+    $font->align('center');
+    $font->valign('bottom');
+});
+
+
+
+// Convert the image to base64 string
+$imageData = $image->encode('data-url');
+
+// Upload the image to Cloudinary
+$uploadResult = Cloudinary::upload($imageData, ['folder' => 'your-folder-name']);
+$imageUrl = $uploadResult->getSecurePath();
+
         }
 
         // Create new Barang instance and save to the database
@@ -91,14 +130,22 @@ class BarangController extends Controller
         $barang->stock = $request->stock;
         $barang->anggaran = $request->anggaran;
         $barang->serialnumber = $request->serialnumber;
-        $barang->scan = $barcode; // Assign the generated barcode value
-        $barang->image = $imageUrl; // Assign the image URL
+        $barang->scan = $barcode;
+        $barang->image = $imageUrl ?? null; // Assign the image URL or null
         $barang->lokasi = $request->lokasi;
         $barang->gedung = $request->gedung;
         $barang->save();
 
         return redirect()->route('barang')->with('toast_success', 'Data Berhasil Disimpan!');
+    } catch (\Exception $e) {
+        // Log the error
+        \Log::error('Error storing barang: ' . $e->getMessage());
+        // Handle the error gracefully (e.g., display an error message to the user)
+        return redirect()->back()->with('toast_error', 'Error storing barang. Please try again later.');
     }
+}
+
+
 
 
     public function tampilanbarang($id) {

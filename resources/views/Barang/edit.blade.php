@@ -32,6 +32,11 @@
                                         <input type="hidden" name="image" class="image-tag">
                                     </div>
                                     <div class="col-md-6">
+                                        <label for="image_file" id="image_file_label">Atau Masukan Foto via Perangkat anda </label>
+                                        <input type="file" class="form-control-file" name="image_file" id="fileInput" onchange="handleFileInput()">
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <div id="results" style="margin-top: 30px;">Your captured image will appear here...</div>
                                     </div>
                                 </div>
